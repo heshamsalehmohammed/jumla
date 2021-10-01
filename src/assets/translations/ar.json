@@ -4,6 +4,15 @@
     "nav.about": "من نحن",
     "nav.join": "انظم الينا",
     "nav.products": "المنتجات",
-    "nav.offers": "العروض"
+    "nav.offers": "العروض",
+    "auth.login": "تسجيل الدخول",
+    "auth.register": "تسجيل مستخدم جديد",
+    "auth.forgotYourPassword": "نسيت كلمة السر ؟",
+    "auth.resetPassword": "اعادة كلمة السر",
+    "auth.rememberMe": "تذكرني",
+    "auth.emailAddress":"البريد الالكتروني",
+    "auth.password":"كلمة السر",
+    "auth.join": "انضم الينا",
+    "auth.name" :"الاسم"
   }
 }

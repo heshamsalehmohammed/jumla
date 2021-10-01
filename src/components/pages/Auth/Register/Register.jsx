@@ -5,6 +5,8 @@ import Joi from 'joi-browser';
 import Form from '../../../common/form';
 import * as userService from '../../../../services/userService';
 import auth from '../../../../services/authService';
+import {withTranslation} from 'react-i18next';
+import {languages} from '../../../common/enums';
 
 class Register extends Form {
   state = {
@@ -33,15 +35,16 @@ class Register extends Form {
   };
   render() {
     if (auth.getCurrentUser()) return <Redirect to="/" />;
+    const {t, i18n} = this.props;
     return (
       <form className="col-md-5 col-sm-12" onSubmit={this.handleSubmit}>
         <div className="form-row justify-content-center justify-content-sm-start">
-          <h3>Register</h3>
+          <h3>{t('auth.register')}</h3>
         </div>
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'email',
-            'Email address',
+            t('auth.emailAddress'),
             'email',
             'form-group mb-1',
             'form-label login-label',
@@ -51,7 +54,7 @@ class Register extends Form {
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'password',
-            'Password',
+            t('auth.password'),
             'password',
             'form-group mb-1',
             'form-label login-label',
@@ -61,7 +64,7 @@ class Register extends Form {
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'name',
-            'Name',
+            t("auth.name"),
             'text',
             'form-group mb-2',
             'form-label login-label',
@@ -70,7 +73,7 @@ class Register extends Form {
         </div>
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderButton(
-            'SignUp',
+            t('auth.register'),
             'submit',
             'btn btn-primary btn-block login-btn outfit login-submit-btn'
           )}
@@ -91,4 +94,4 @@ class Register extends Form {
   }
 }
 
-export default Register;
+export default withTranslation()(Register);

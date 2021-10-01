@@ -4,6 +4,8 @@ import {Link, Redirect} from 'react-router-dom';
 import Joi from 'joi-browser';
 import Form from '../../../common/form';
 import auth from '../../../../services/authService';
+import {withTranslation} from 'react-i18next';
+import {languages} from '../../../common/enums';
 
 class ForgetPassword extends Form {
   state = {
@@ -22,15 +24,16 @@ class ForgetPassword extends Form {
 
   render() {
     if (auth.getCurrentUser()) return <Redirect to="/" />;
+    const {t, i18n} = this.props;
     return (
       <form className="col-md-8 col-sm-12" onSubmit={this.handleSubmit}>
         <div className="form-row justify-content-center justify-content-sm-start">
-          <h3>Forget Password</h3>
+          <h3>{t('auth.forgotYourPassword')}</h3>
         </div>
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'email',
-            'Email address',
+            t('auth.emailAddress'),
             'email',
             'form-group mb-1',
             'form-label login-label',
@@ -39,7 +42,7 @@ class ForgetPassword extends Form {
         </div>
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderButton(
-            'Reset Password',
+            t('auth.resetPassword'),
             'submit',
             'btn btn-primary btn-block login-btn outfit login-submit-btn'
           )}
@@ -47,7 +50,7 @@ class ForgetPassword extends Form {
         <div className="form-row login-utils justify-content-center align-content-center ">
           <div className="login-utils-div d-flex justify-content-end">
             <Link to="/auth" className="ml-2">
-              Register/Login
+              {t('auth.join')}
             </Link>
           </div>
         </div>
@@ -56,4 +59,4 @@ class ForgetPassword extends Form {
   }
 }
 
-export default ForgetPassword;
+export default withTranslation()(ForgetPassword);

@@ -43,15 +43,15 @@ class Login extends Form {
         style={{
           padding: '25px',
           borderRadius: '25px',
-          backgroundColor: 'rgb(253 ,79 ,76 , 5%)',
+          backgroundColor: 'rgb(250 , 250 , 250)',
         }}>
         <div className="form-row justify-content-center justify-content-sm-start">
-          <h3>Login</h3>
+          <h3>{t('auth.login')}</h3>
         </div>
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'email',
-            'Email address',
+            t('auth.emailAddress'),
             'email',
             'form-group mb-1',
             'form-label login-label',
@@ -61,7 +61,7 @@ class Login extends Form {
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'password',
-            'Password',
+            t('auth.password'),
             'password',
             'form-group mb-1',
             'form-label login-label',
@@ -71,7 +71,7 @@ class Login extends Form {
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'rememberme',
-            'Remember me!',
+            t('auth.rememberMe'),
             'checkbox',
             `form-check mb-2 ${i18n.language === languages.ar ? 'd-flex' : ''}`,
             `form-check-label login-label`,
@@ -81,7 +81,7 @@ class Login extends Form {
 
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderButton(
-            'Login',
+            t('auth.login'),
             'submit',
             'btn btn-primary btn-block login-btn outfit login-submit-btn'
           )}
@@ -89,7 +89,7 @@ class Login extends Form {
 
         <div className="form-row login-utils justify-content-center align-content-center ">
           <div className="login-utils-div d-flex justify-content-end">
-            <Link to="/forgetpassword">Forgot your password?</Link>
+            <Link to="/forgetpassword">{t('auth.forgotYourPassword')}</Link>
           </div>
         </div>
         <div className="form-row login-utils justify-content-center align-content-center justify-content-sm-start align-content-sm-start">

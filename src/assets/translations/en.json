@@ -4,7 +4,16 @@
     "nav.about": "about",
     "nav.join": "join",
     "nav.products": "products",
-    "nav.offers": "offers"
+    "nav.offers": "offers",
+    "auth.login": "Login",
+    "auth.register": "Register",
+    "auth.forgotYourPassword": "Forget Your Password ?!",
+    "auth.resetPassword": "Reset Password",
+    "auth.rememberMe": "Remember Me!",
+    "auth.emailAddress":"Email address",
+    "auth.password":"Password",
+    "auth.join": "Login/Register",
+    "auth.name" :"Name"
   }
 }
  

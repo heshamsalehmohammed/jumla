@@ -23,7 +23,7 @@ class NavBar extends React.Component {
               <Nav.Link as={Link} className="nav-item nav-link" to="/">
                 {t('nav.about')}
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+              <Nav.Link as={Link} className="nav-item nav-link" to="/auth">
                 {t('nav.join')}
               </Nav.Link>
               <Nav.Link as={Link} className="nav-item nav-link" to="/">
