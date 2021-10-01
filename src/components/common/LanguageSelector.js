@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useTranslation } from "react-i18next";
 
 
@@ -9,9 +8,7 @@ const LanguageSelector = () => {
 
 
   const changeLanguage = (event) => {
-
     i18n.changeLanguage(event.target.value);
-
   };
 
 

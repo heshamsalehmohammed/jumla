@@ -4,6 +4,8 @@ import {Link, Redirect} from 'react-router-dom';
 import Joi from 'joi-browser';
 import Form from '../../../common/form';
 import auth from '../../../../services/authService';
+import {withTranslation} from 'react-i18next';
+import {languages} from '../../../common/enums';
 
 class Login extends Form {
   state = {
@@ -33,6 +35,7 @@ class Login extends Form {
   };
   render() {
     if (auth.getCurrentUser()) return <Redirect to="/" />;
+    const {t, i18n} = this.props;
     return (
       <form
         className="col-md-5 col-sm-12"
@@ -70,8 +73,8 @@ class Login extends Form {
             'rememberme',
             'Remember me!',
             'checkbox',
-            'form-check mb-2',
-            'form-check-label login-label',
+            `form-check mb-2 ${i18n.language === languages.ar ? 'd-flex' : ''}`,
+            `form-check-label login-label`,
             'form-check-input'
           )}
         </div>
@@ -86,7 +89,7 @@ class Login extends Form {
 
         <div className="form-row login-utils justify-content-center align-content-center ">
           <div className="login-utils-div d-flex justify-content-end">
-          <Link to="/forgetpassword">Forgot your password?</Link>
+            <Link to="/forgetpassword">Forgot your password?</Link>
           </div>
         </div>
         <div className="form-row login-utils justify-content-center align-content-center justify-content-sm-start align-content-sm-start">
@@ -102,4 +105,4 @@ class Login extends Form {
   }
 }
 
-export default Login;
+export default withTranslation()(Login);
