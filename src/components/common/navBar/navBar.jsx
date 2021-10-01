@@ -34,13 +34,13 @@ class NavBar extends React.Component {
               {!user && (
                 <React.Fragment>
                   <Nav.Link as={Link} className="nav-item nav-link" to="/auth">
-                    Login
+                  {t('auth.login')}
                   </Nav.Link>
                   <Nav.Link
                     as={Link}
                     className="nav-item nav-link"
                     to="/auth">
-                    Register
+                     {t('auth.register')}
                   </Nav.Link>
                 </React.Fragment>
               )}
