@@ -9,5 +9,17 @@
 }
 
 .custom-nav{
-  background-color:  #162136 !important; 
+  background-color:  #fafafa !important; 
+  
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #fe3f40;
+}
+.navbar-light .navbar-brand {
+  color: #fe3f40;
+}
+
+.navbar-light .navbar-brand:hover {
+  color: #da1212;
 }

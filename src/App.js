@@ -4,20 +4,16 @@ import Auth from './components/pages/Auth/Auth';
 import Logout from './components/pages/Auth/logout';
 import LandingPage from './components/pages/LandingPage/LandingPage';
 import NotFound from './components/pages/NotFound/NotFound';
+import i18n from './118n'
 
 function App() {
   return (
     <div className="App vh-100">
       <Switch>
         <Route
-          path={['/login']}
+          path={['/auth']}
           exact
-          render={(props) => <Auth page="login" {...props} />}
-        />
-        <Route
-          path={['/register']}
-          exact
-          render={(props) => <Auth page="register" {...props} />}
+          render={(props) => <Auth {...props} />}
         />
         <Route
           path={['/forgetpassword']}

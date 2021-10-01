@@ -1,6 +1,6 @@
 import './Register.scss';
 import React from 'react';
-import {Link ,Redirect} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Joi from 'joi-browser';
 import Form from '../../../common/form';
 import * as userService from '../../../../services/userService';
@@ -34,60 +34,59 @@ class Register extends Form {
   render() {
     if (auth.getCurrentUser()) return <Redirect to="/" />;
     return (
-      <div className="container login-container vh-100">
-        <div className="row mb-5 pb-2">
-          <form className="col" onSubmit={this.handleSubmit}>
-            <div className="form-row justify-content-center justify-content-sm-start">
-              {this.renderInput(
-                'email',
-                'Email address',
-                'email',
-                'form-group mb-1',
-                'form-label login-label',
-                'form-control outfit'
-              )}
-            </div>
-            <div className="form-row justify-content-center justify-content-sm-start">
-              {this.renderInput(
-                'password',
-                'Password',
-                'password',
-                'form-group mb-1',
-                'form-label login-label',
-                'form-control outfit'
-              )}
-            </div>
-            <div className="form-row justify-content-center justify-content-sm-start">
-              {this.renderInput(
-                'name',
-                'Name',
-                'text',
-                'form-group mb-2',
-                'form-label login-label',
-                'form-control outfit'
-              )}
-            </div>
-            <div className="form-row justify-content-center justify-content-sm-start">
-              {this.renderButton(
-                'SignUp',
-                'submit',
-                'btn btn-primary btn-block login-btn outfit login-submit-btn'
-              )}
-            </div>
-            <div className="form-row login-utils justify-content-center align-content-center justify-content-sm-start align-content-sm-start">
-              <div className="login-utils-div  d-flex justify-content-between">
-                Already a user?{' '}
-                <Link to="/login" className="ml-2">
-                  Login
-                </Link>
-              </div>
-              <div className="login-utils-div">
-                <Link to="/forgetpassword">Forgot your password?</Link>
-              </div>
-            </div>
-          </form>
+      <form className="col-md-5 col-sm-12" onSubmit={this.handleSubmit}>
+        <div className="form-row justify-content-center justify-content-sm-start">
+          <h3>Register</h3>
         </div>
-      </div>
+        <div className="form-row justify-content-center justify-content-sm-start">
+          {this.renderInput(
+            'email',
+            'Email address',
+            'email',
+            'form-group mb-1',
+            'form-label login-label',
+            'form-control outfit'
+          )}
+        </div>
+        <div className="form-row justify-content-center justify-content-sm-start">
+          {this.renderInput(
+            'password',
+            'Password',
+            'password',
+            'form-group mb-1',
+            'form-label login-label',
+            'form-control outfit'
+          )}
+        </div>
+        <div className="form-row justify-content-center justify-content-sm-start">
+          {this.renderInput(
+            'name',
+            'Name',
+            'text',
+            'form-group mb-2',
+            'form-label login-label',
+            'form-control outfit'
+          )}
+        </div>
+        <div className="form-row justify-content-center justify-content-sm-start">
+          {this.renderButton(
+            'SignUp',
+            'submit',
+            'btn btn-primary btn-block login-btn outfit login-submit-btn'
+          )}
+        </div>
+        {/*         <div className="form-row login-utils justify-content-center align-content-center justify-content-sm-start align-content-sm-start">
+          <div className="login-utils-div  d-flex justify-content-between">
+            Already a user?{' '}
+            <Link to="/login" className="ml-2">
+              Login
+            </Link>
+          </div>
+          <div className="login-utils-div">
+            <Link to="/forgetpassword">Forgot your password?</Link>
+          </div>
+        </div> */}
+      </form>
     );
   }
 }
