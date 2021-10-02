@@ -13,7 +13,10 @@ class NavBar extends React.Component {
     const {t} = this.props;
     return (
       <>
-        <Navbar collapseOnSelect expand="lg" className="fixed-top custom-nav p-4">
+        <Navbar
+          collapseOnSelect
+          expand="lg"
+          className="fixed-top custom-nav p-4">
           <Link className="navbar-brand" to="/">
             {t('nav.home')}
           </Link>
@@ -23,24 +26,24 @@ class NavBar extends React.Component {
               <Nav.Link as={Link} className="nav-item nav-link" to="/">
                 {t('nav.about')}
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/auth">
-                {t('nav.join')}
+              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+                {t('nav.services')}
               </Nav.Link>
               <Nav.Link as={Link} className="nav-item nav-link" to="/">
                 {t('nav.products')}
+              </Nav.Link>
+              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+                {t('nav.offers')}
+              </Nav.Link>
+              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+                {t('nav.contactUs')}
               </Nav.Link>
             </Nav>
             <Nav>
               {!user && (
                 <React.Fragment>
                   <Nav.Link as={Link} className="nav-item nav-link" to="/auth">
-                  {t('auth.login')}
-                  </Nav.Link>
-                  <Nav.Link
-                    as={Link}
-                    className="nav-item nav-link"
-                    to="/auth">
-                     {t('auth.register')}
+                    {t('nav.join')}
                   </Nav.Link>
                 </React.Fragment>
               )}

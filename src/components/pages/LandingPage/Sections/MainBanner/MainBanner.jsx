@@ -1,58 +1,56 @@
 import './MainBanner.scss';
 import React from 'react';
 import brm from '../../../../../assets/images/banner-right-image.png';
+import {useTranslation} from 'react-i18next';
+import Subscribtion from '../../../../common/subscribtion/subscribtion';
 
 const MainBanner = () => {
+  const {t, i18n} = useTranslation();
+
   return (
-    <div
-      className="main-banner"
-      id="top">
+    <div className="main-banner" id="top">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
             <div className="row">
               <div className="col-lg-6 align-self-center">
-                <div
-                  className="left-content header-text">
-                  <h6>Welcome to Jumla</h6>
+                <div className="left-content header-text">
+                  <h6>{t('mainBunner.welcome')}</h6>
                   <h2>
-                    We Make <em>Digital Ideas</em> &amp; <span>SEO</span>{' '}
-                    Marketing
+                    {t('mainBunner.header1')}{' '}
+                    <em>{t('mainBunner.dropShipping')}</em> &amp;{' '}
+                    <span>{t('mainBunner.eCommerce')}</span>{' '}
+                    {t('mainBunner.header2')}
                   </h2>
-                  <p>
-                    Space Dynamic is a professional looking HTML template using
-                    a Bootstrap 5 (beta 2). This CSS template is free for you
-                    provided by{' '}
-                    <a
-                      rel="nofollow"
-                      href="https://templatemo.com/page/1"
-                      target="_parent">
-                      TemplateMo
-                    </a>
-                    .
-                  </p>
-                  <form id="search" action="#" method="GET">
+                  <p>{t('mainBunner.description')}</p>
+                  {/* <form id="search" action="#" method="GET">
                     <fieldset>
                       <input
                         type="address"
                         name="address"
                         className="email"
-                        placeholder="Your website URL..."
+                        placeholder="Email Address"
                         autoComplete="on"
                         required
                       />
                     </fieldset>
                     <fieldset>
-                      <button type="submit" className="main-button">
-                        Analyze Site
+                      <button
+                        type="submit"
+                        className="main-button"
+                        style={{
+                          left: i18n.language === 'en' ? 'unset' : '10px',
+                          right: i18n.language === 'en' ? '10px' : 'unset',
+                        }}>
+                        Subsribe
                       </button>
                     </fieldset>
-                  </form>
+                  </form> */}
+                  <Subscribtion />
                 </div>
               </div>
               <div className="col-lg-6">
-                <div
-                  className="right-image">
+                <div className="right-image">
                   <img src={brm} alt="team meeting" />
                 </div>
               </div>
@@ -63,6 +61,5 @@ const MainBanner = () => {
     </div>
   );
 };
-
 
 export default MainBanner;

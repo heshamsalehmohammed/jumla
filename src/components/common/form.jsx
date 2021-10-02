@@ -48,11 +48,11 @@ class Form extends Component {
     this.setState({data, errors});
   };
 
-  renderButton(label,type,classes) {
-    const btnClasses = classes?classes:"btn btn-primary";
-    const btnDisabled = (type === "submit" )?this.validate():false;
+  renderButton(label, type, classes, styles = {}) {
+    const btnClasses = classes ? classes : 'btn btn-primary';
+    const btnDisabled = type === 'submit' ? this.validate() : false;
     return (
-      <button type={type} disabled={btnDisabled} className={btnClasses}>
+      <button type={type} disabled={btnDisabled} className={btnClasses} style={styles}>
         {label}
       </button>
     );
@@ -77,9 +77,12 @@ class Form extends Component {
     name,
     label,
     type = 'text',
-    groupClasses = "form-group",
-    labelClasses = "form-label",
-    inputClasses = "form-control"
+    groupClasses = 'form-group',
+    labelClasses = 'form-label',
+    inputClasses = 'form-control',
+    hasLabel = true,
+    inputStyle = {},
+    placeHolder = ''
   ) {
     const {data, errors} = this.state;
 
@@ -94,6 +97,9 @@ class Form extends Component {
         groupClasses={groupClasses}
         labelClasses={labelClasses}
         inputClasses={inputClasses}
+        hasLabel={hasLabel}
+        inputStyle={inputStyle}
+        placeHolder={placeHolder}
       />
     );
   }

@@ -10,6 +10,9 @@ const Input = ({
   groupClasses,
   labelClasses,
   inputClasses,
+  hasLabel,
+  inputStyle,
+  placeHolder,
   ...rest
 }) => {
   const isCheckbox = type === 'checkbox';
@@ -17,7 +20,7 @@ const Input = ({
   const {t, i18n} = useTranslation();
   return (
     <div className={groupClasses}>
-      {!isCheckbox && (
+      {!isCheckbox && hasLabel && (
         <label htmlFor={name} className={labelClasses}>
           {label}
         </label>
@@ -29,6 +32,8 @@ const Input = ({
         name={name}
         id={name}
         className={inputClasses}
+        style={inputStyle}
+        placeholder={placeHolder}
       />
       {isCheckbox && (
         <label
