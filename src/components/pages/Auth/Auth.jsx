@@ -29,7 +29,9 @@ class Auth extends React.Component {
       <>
         <NavBar />
         <div className="container login-container pt-5 mt-5">
-          <div className="row row justify-content-center">{this.getComponentToRender()}</div>
+          <div className="row row justify-content-center pt-5 mt-5">
+            {this.getComponentToRender()}
+          </div>
         </div>
       </>
     );

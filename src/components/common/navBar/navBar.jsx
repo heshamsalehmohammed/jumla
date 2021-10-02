@@ -13,7 +13,7 @@ class NavBar extends React.Component {
     const {t} = this.props;
     return (
       <>
-        <Navbar collapseOnSelect expand="lg" className="custom-nav p-4">
+        <Navbar collapseOnSelect expand="lg" className="fixed-top custom-nav p-4">
           <Link className="navbar-brand" to="/">
             {t('nav.home')}
           </Link>

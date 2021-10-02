@@ -8,7 +8,7 @@ import i18n from './118n'
 
 function App() {
   return (
-    <div className="App vh-100">
+    <div className="App">
       <Switch>
         <Route
           path={['/auth']}
