@@ -8,18 +8,22 @@ import ContactUs from './Sections/ContactUs/ContactUs';
 import Services from './Sections/Services/Services';
 import LanguageSelector from '../../common/LanguageSelector';
 import FancyAnimation from './Sections/FancyAnimation/FancyAnimation';
+import ScrollHandler from '../../common/ScrollHandler';
+import {BrowserRouter} from 'react-router-dom';
 
 const LandingPage = (props) => {
   return (
     <>
       <NavBar />
-      <MainBanner />
-{/*       <FancyAnimation/> */}
-      <AboutUs />
-      <Services/>
-      <ContactUs/>
-      <Footer />
-      {/*  <LanguageSelector/> */}
+      <ScrollHandler>
+        <BrowserRouter>
+          <MainBanner />
+          <AboutUs />
+          <Services />
+          <ContactUs />
+          <Footer />
+        </BrowserRouter>
+      </ScrollHandler>
     </>
   );
 };

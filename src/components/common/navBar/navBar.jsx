@@ -23,19 +23,19 @@ class NavBar extends React.Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+              <Nav.Link as={Link} className="nav-item nav-link" to="/#about">
                 {t('nav.about')}
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+              <Nav.Link as={Link} className="nav-item nav-link" to="/#services">
                 {t('nav.services')}
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+              <Nav.Link as={Link} className="nav-item nav-link" to="/#products">
                 {t('nav.products')}
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+              <Nav.Link as={Link} className="nav-item nav-link" to="/#offers">
                 {t('nav.offers')}
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/">
+              <Nav.Link as={Link} className="nav-item nav-link" to="/#contact">
                 {t('nav.contactUs')}
               </Nav.Link>
             </Nav>
