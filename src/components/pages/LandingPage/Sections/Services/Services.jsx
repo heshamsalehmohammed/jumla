@@ -3,20 +3,18 @@ import sli from '../../../../../assets/images/services-left-image.png'
 
 const Services = () => {
   return (
-    <div id="services" class="our-services section">
-      <div class="container">
-        <div class="row">
+    <div id="services" className="our-services section">
+      <div className="container">
+        <div className="row">
           <div
-            class="col-lg-6 align-self-center">
-            <div class="left-image">
+            className="col-lg-6 align-self-center">
+            <div className="left-image">
               <img src={sli} alt="" />
             </div>
           </div>
           <div
-            class="col-lg-6 wow fadeInRight"
-            data-wow-duration="1s"
-            data-wow-delay="0.2s">
-            <div class="section-heading">
+            className="col-lg-6">
+            <div className="section-heading">
               <h2>
                 Grow your website with our <em>SEO</em> service &amp;{' '}
                 <span>Project</span> Ideas
@@ -29,29 +27,29 @@ const Services = () => {
                 cooperation.
               </p>
             </div>
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="first-bar progress-skill-bar">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="first-bar progress-skill-bar">
                   <h4>Website Analysis</h4>
                   <span>84%</span>
-                  <div class="filled-bar"></div>
-                  <div class="full-bar"></div>
+                  <div className="filled-bar"></div>
+                  <div className="full-bar"></div>
                 </div>
               </div>
-              <div class="col-lg-12">
-                <div class="second-bar progress-skill-bar">
+              <div className="col-lg-12">
+                <div className="second-bar progress-skill-bar">
                   <h4>SEO Reports</h4>
                   <span>88%</span>
-                  <div class="filled-bar"></div>
-                  <div class="full-bar"></div>
+                  <div className="filled-bar"></div>
+                  <div className="full-bar"></div>
                 </div>
               </div>
-              <div class="col-lg-12">
-                <div class="third-bar progress-skill-bar">
+              <div className="col-lg-12">
+                <div className="third-bar progress-skill-bar">
                   <h4>Page Optimizations</h4>
                   <span>94%</span>
-                  <div class="filled-bar"></div>
-                  <div class="full-bar"></div>
+                  <div className="filled-bar"></div>
+                  <div className="full-bar"></div>
                 </div>
               </div>
             </div>

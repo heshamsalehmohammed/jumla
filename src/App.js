@@ -4,17 +4,14 @@ import Auth from './components/pages/Auth/Auth';
 import Logout from './components/pages/Auth/logout';
 import LandingPage from './components/pages/LandingPage/LandingPage';
 import NotFound from './components/pages/NotFound/NotFound';
-import i18n from './118n'
+import i18n from './118n';
+
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route
-          path={['/auth']}
-          exact
-          render={(props) => <Auth {...props} />}
-        />
+        <Route path={['/auth']} exact render={(props) => <Auth {...props} />} />
         <Route
           path={['/forgetpassword']}
           exact
