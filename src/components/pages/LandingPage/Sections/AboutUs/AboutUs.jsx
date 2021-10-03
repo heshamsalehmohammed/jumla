@@ -1,5 +1,6 @@
 import './AboutUs.scss';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import ali from '../../../../../assets/images/about-left-image.png';
 import si1 from '../../../../../assets/images/service-icon-01.png';
 import si2 from '../../../../../assets/images/service-icon-02.png';
@@ -9,6 +10,7 @@ import Fade from 'react-reveal/Fade';
 import Bounce from 'react-reveal/Bounce';
 
 const AboutUs = () => {
+  const {t, i18n} = useTranslation();
   return (
     <div id="about" className="about-us section">
       <div className="container">
@@ -30,11 +32,8 @@ const AboutUs = () => {
                         <img src={si1} alt="reporting" />
                       </div>
                       <div className="right-text">
-                        <h4>Data Analysis</h4>
-                        <p>
-                          Lorem ipsum dolor sit amet, ctetur aoi adipiscing
-                          eliter
-                        </p>
+                        <h4>{t('about.header1')}</h4>
+                        <p>{t('about.description1')}</p>
                       </div>
                     </div>
                   </div>
@@ -44,11 +43,8 @@ const AboutUs = () => {
                         <img src={si2} alt="" />
                       </div>
                       <div className="right-text">
-                        <h4>Data Reporting</h4>
-                        <p>
-                          Lorem ipsum dolor sit amet, ctetur aoi adipiscing
-                          eliter
-                        </p>
+                        <h4>{t('about.header2')}</h4>
+                        <p>{t('about.description2')}</p>
                       </div>
                     </div>
                   </div>
@@ -58,11 +54,8 @@ const AboutUs = () => {
                         <img src={si3} alt="" />
                       </div>
                       <div className="right-text">
-                        <h4>Web Analytics</h4>
-                        <p>
-                          Lorem ipsum dolor sit amet, ctetur aoi adipiscing
-                          eliter
-                        </p>
+                        <h4>{t('about.header3')}</h4>
+                        <p>{t('about.description3')}</p>
                       </div>
                     </div>
                   </div>
@@ -72,11 +65,8 @@ const AboutUs = () => {
                         <img src={si4} alt="" />
                       </div>
                       <div className="right-text">
-                        <h4>SEO Suggestions</h4>
-                        <p>
-                          Lorem ipsum dolor sit amet, ctetur aoi adipiscing
-                          eliter
-                        </p>
+                        <h4>{t('about.header4')}</h4>
+                        <p>{t('about.description4')}</p>
                       </div>
                     </div>
                   </div>

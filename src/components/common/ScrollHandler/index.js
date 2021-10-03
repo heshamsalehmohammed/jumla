@@ -24,12 +24,10 @@ class ScrollHandler extends PureComponent {
     const element = document.getElementById(hash.replace('#', ''));
 
     setTimeout(() => {
-      if (element) {
         window.scrollTo({
           behavior: element ? 'smooth' : 'auto',
           top: element ? element.offsetTop : 0,
         });
-      }
     }, 100);
   };
 

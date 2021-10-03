@@ -7,6 +7,7 @@ import * as userService from '../../../../services/userService';
 import auth from '../../../../services/authService';
 import {withTranslation} from 'react-i18next';
 import {languages} from '../../../common/enums';
+import {withRouter} from 'react-router-dom';
 
 class Register extends Form {
   state = {
@@ -47,7 +48,7 @@ class Register extends Form {
             t('auth.emailAddress'),
             'email',
             'form-group mb-1',
-            'form-label login-label',
+            'form-label register-label',
             'form-control outfit'
           )}
         </div>
@@ -57,17 +58,27 @@ class Register extends Form {
             t('auth.password'),
             'password',
             'form-group mb-1',
-            'form-label login-label',
+            'form-label register-label',
             'form-control outfit'
           )}
         </div>
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderInput(
             'name',
-            t("auth.name"),
+            t('auth.name'),
             'text',
             'form-group mb-2',
-            'form-label login-label',
+            'form-label register-label',
+            'form-control outfit'
+          )}
+        </div>
+        <div className="form-row justify-content-center justify-content-sm-start">
+          {this.renderSelect(
+            'name',
+            t('auth.accountType'),
+            [{_id: 1, name: 'marketer'}],
+            'form-group mb-2',
+            'form-label register-label',
             'form-control outfit'
           )}
         </div>
@@ -94,4 +105,4 @@ class Register extends Form {
   }
 }
 
-export default withTranslation()(Register);
+export default withRouter(withTranslation()(Register));

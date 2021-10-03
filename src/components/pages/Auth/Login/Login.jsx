@@ -6,6 +6,7 @@ import Form from '../../../common/form';
 import auth from '../../../../services/authService';
 import {withTranslation} from 'react-i18next';
 import {languages} from '../../../common/enums';
+import {withRouter} from 'react-router-dom';
 
 class Login extends Form {
   state = {
@@ -22,9 +23,9 @@ class Login extends Form {
   doSubmit = async () => {
     try {
       const {data} = this.state;
-      await auth.login(data.email, data.password);
-      const {state} = this.props.location;
-      window.location = state ? state.from.pathname : '/';
+      // await auth.login(data.email, data.password);
+      const {state} = this.props.location;debugger
+      window.location = state ? state.from.pathname : '/dashboard';
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = {...this.state.errors};
@@ -105,4 +106,4 @@ class Login extends Form {
   }
 }
 
-export default withTranslation()(Login);
+export default withRouter(withTranslation()(Login));

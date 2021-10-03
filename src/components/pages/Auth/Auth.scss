@@ -1,38 +1,48 @@
 .login-container {
-    display: flex;
-    flex-direction: column-reverse;
-    font-family: 'Righteous', cursive;
+  display: flex;
+  flex-direction: column-reverse;
+  font-family: 'Righteous', cursive;
+}
+
+.login-btn {
+  max-width: 213.2px;
+}
+
+.login-utils-div {
+  min-width: 213.2px;
+}
+
+.login-label {
+  color: #00acff;
+  margin: 0px;
+}
+
+.register-label {
+  color: #fafafa;
+  margin: 0px;
+}
+
+.login-submit-btn {
+  background-color: #081f2d;
+  &:hover {
+    background-color: #28475f;
   }
-  
-  .login-btn {
-    max-width: 213.2px;
-  }
-  
-  .login-utils-div{
-    min-width: 213.2px; 
-  }
-  
-  .login-label {
-    color: #00acff;
-    margin: 0px;
-  }
-  
-  .login-submit-btn {
-    background-color: #081f2d;
-    &:hover {
-      background-color: #28475f;
+}
+
+.login-utils {
+  flex-direction: column;
+  font-size: smaller;
+  div {
+    a {
+      color: #1b22ff;
     }
   }
-  
-  
-  
-  .login-utils {
-    flex-direction: column;
-    font-size: smaller;
-    div {
-      a {
-        color: #1b22ff;
-      }
-    }
-  }
-  
+}
+
+.auth {
+  padding: 160px 0px;
+  background-image: url(../../../assets/images/contact-bg.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}

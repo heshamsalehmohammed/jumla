@@ -26,7 +26,7 @@ class Form extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = (e) => {debugger
     e.preventDefault();
 
     const errors = this.validate();
@@ -52,13 +52,24 @@ class Form extends Component {
     const btnClasses = classes ? classes : 'btn btn-primary';
     const btnDisabled = type === 'submit' ? this.validate() : false;
     return (
-      <button type={type} disabled={btnDisabled} className={btnClasses} style={styles}>
+      <button
+        type={type}
+        disabled={btnDisabled}
+        className={btnClasses}
+        style={styles}>
         {label}
       </button>
     );
   }
 
-  renderSelect(name, label, options) {
+  renderSelect(
+    name,
+    label,
+    options,
+    groupClasses = 'form-group',
+    labelClasses = 'form-label',
+    selectClasses = 'form-control'
+  ) {
     const {data, errors} = this.state;
 
     return (
@@ -69,6 +80,9 @@ class Form extends Component {
         options={options}
         onChange={this.handleChange}
         error={errors[name]}
+        groupClasses={groupClasses}
+        labelClasses={labelClasses}
+        selectClasses={selectClasses}
       />
     );
   }

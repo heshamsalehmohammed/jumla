@@ -6,6 +6,7 @@ import Form from '../../../common/form';
 import auth from '../../../../services/authService';
 import {withTranslation} from 'react-i18next';
 import {languages} from '../../../common/enums';
+import {withRouter} from 'react-router-dom';
 
 class ForgetPassword extends Form {
   state = {
@@ -59,4 +60,4 @@ class ForgetPassword extends Form {
   }
 }
 
-export default withTranslation()(ForgetPassword);
+export default withRouter(withTranslation()(ForgetPassword));
