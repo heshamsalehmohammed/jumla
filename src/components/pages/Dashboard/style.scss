@@ -1233,6 +1233,11 @@ body {
   }
 }
 
+
+.sidebar-dropdown.active .sidebar-submenu{
+  display: block;
+}
+
 .chiller-theme {
   .sidebar-wrapper {
     ul li:hover a i,

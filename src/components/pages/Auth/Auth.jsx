@@ -1,11 +1,13 @@
 import './Auth.scss';
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import ForgetPassword from './ForgetPassword/ForgetPassword';
 import NavBar from '../../common/navBar/navBar';
 import Footer from '../../common/footer/footer';
 import ScrollHandler from '../../common/ScrollHandler';
+import auth from '../../../services/authService';
 
 class Auth extends React.Component {
   getComponentToRender() {
@@ -27,6 +29,7 @@ class Auth extends React.Component {
   }
 
   render() {
+    if (auth.getCurrentUser()) return <Redirect to="/dashboard" />;
     return (
       <>
         <NavBar />

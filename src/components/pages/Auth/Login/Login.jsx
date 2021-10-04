@@ -35,7 +35,7 @@ class Login extends Form {
     }
   };
   render() {
-    if (auth.getCurrentUser()) return <Redirect to="/" />;
+    if (auth.getCurrentUser()) return <Redirect to="/dashboard/default" />;
     const {t, i18n} = this.props;
     return (
       <form

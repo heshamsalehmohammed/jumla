@@ -1,6 +1,6 @@
 import './Register.scss';
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Joi from 'joi-browser';
 import Form from '../../../common/form';
 import * as userService from '../../../../services/userService';
@@ -35,7 +35,7 @@ class Register extends Form {
     }
   };
   render() {
-    if (auth.getCurrentUser()) return <Redirect to="/" />;
+    if (auth.getCurrentUser()) return <Redirect to="/dashboard/default" />;
     const {t, i18n} = this.props;
     return (
       <form className="col-md-5 col-sm-12" onSubmit={this.handleSubmit}>

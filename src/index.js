@@ -5,6 +5,7 @@ import App from './App';
 import {BrowserRouter} from 'react-router-dom';
 import "font-awesome/scss/font-awesome.scss";
 
+
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
