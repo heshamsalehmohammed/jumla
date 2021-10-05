@@ -10,6 +10,7 @@ import Wishlist from './Wishlist/Wishlist';
 import Products from './Products/Products';
 import UserProfile from './UserProfile/UserProfile';
 import MainNav from './MainNav/MainNav';
+import SecondaryNav from './SecondaryNav/SecondaryNav';
 
 export default withRouter(
   class Dashboard extends Component {
@@ -18,7 +19,7 @@ export default withRouter(
       this.state = {};
     }
     render() {
-      if (auth.getCurrentUser()) return <Redirect to="/auth" />;
+      if (!auth.getCurrentUser()) return <Redirect to="/auth" />;
       const {
         match: {path},
       } = this.props;
@@ -29,6 +30,7 @@ export default withRouter(
           <div className="container-fluid p-0 m-0">
             <div className="page-wrapper chiller-theme ">
               <MainNav />
+              <SecondaryNav/>
               <Sidebar />
               <main className="page-content">
                 <div className="container-fluid" style={{overflow: 'hidden'}}>
@@ -39,7 +41,7 @@ export default withRouter(
                       component={Default}
                     />
                     <Route
-                      path={path + '/chechout'}
+                      path={path + '/checkout'}
                       exact
                       component={Checkout}
                     />

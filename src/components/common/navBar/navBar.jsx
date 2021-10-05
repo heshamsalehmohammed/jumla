@@ -1,11 +1,12 @@
 import './navBar.scss';
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
 import auth from '../../../services/authService';
+import {Link, NavLink} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import {withTranslation} from 'react-i18next';
+import NavProfileDropDown from '../navProfileDropDown/navProfileDropDown';
 
 class NavBar extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class NavBar extends React.Component {
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav>{user && <NavProfileDropDown user={user} />}</Nav>
             <Nav className="mr-auto">
               <Nav.Link as={Link} className="nav-item nav-link" to="/#about">
                 {t('nav.about')}
@@ -46,26 +48,6 @@ class NavBar extends React.Component {
                     {t('nav.join')}
                   </Nav.Link>
                 </React.Fragment>
-              )}
-              {user && (
-                <NavDropdown
-                  title="Dropdown"
-                  id="collasible-nav-dropdown"
-                  className="dropdown-menu-right">
-                  <NavDropdown.Item
-                    as={Link}
-                    className="nav-item nav-link pl-3"
-                    to="/profile">
-                    {user.name}
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item
-                    as={Link}
-                    className="nav-item nav-link pl-3"
-                    to="/logout">
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

@@ -1,0 +1,24 @@
+.quick-cart-button{
+    cursor: pointer;
+}
+
+.quick-cart-badge{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px;
+    background-color: transparent !important;
+    border: 1px solid;
+}
+
+
+.see-full-details-row{
+    position: sticky;
+    bottom: -1rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    background-color: #fff;
+    align-self: center;
+}

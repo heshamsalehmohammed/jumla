@@ -1,0 +1,9 @@
+.shopping-search-icon {
+  position: absolute;
+  z-index: 200;
+  height: 100%;
+}
+
+.shopping-search-input:focus {
+  box-shadow: none !important;
+}

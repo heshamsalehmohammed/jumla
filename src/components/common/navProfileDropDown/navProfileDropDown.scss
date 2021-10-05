@@ -1,0 +1,22 @@
+.nav-custom-profile-dropdown {
+    background-color: transparent !important;
+    border: none !important;
+    color: black !important;
+    outline: none !important;
+    box-shadow: none !important;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .nav-custom-profile-dropdown:hover {
+    color: #fe3f40 !important;
+  }
+  
+  .nav-profile-pic {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-left: 3px;
+    margin-right: 3px;
+  }
+  

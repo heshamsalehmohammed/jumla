@@ -19,13 +19,15 @@ class Register extends Form {
     email: Joi.string().required().email().label('Email'),
     password: Joi.string().required().min(5).label('Password'),
     name: Joi.string().required().label('Name'),
+    accountType: Joi.string().required().label('Account Type'),
   };
 
   doSubmit = async () => {
     try {
+      debugger
       const response = await userService.register(this.state.data);
       auth.loginWithJwt(response.headers['x-auth-token']);
-      window.location = '/';
+      this.props.history.replace('/dashboard');
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = {...this.state.errors};
@@ -74,7 +76,7 @@ class Register extends Form {
         </div>
         <div className="form-row justify-content-center justify-content-sm-start">
           {this.renderSelect(
-            'name',
+            'accountType',
             t('auth.accountType'),
             [{_id: 1, name: 'marketer'}],
             'form-group mb-2',
@@ -89,17 +91,6 @@ class Register extends Form {
             'btn btn-primary btn-block login-btn outfit login-submit-btn'
           )}
         </div>
-        {/*         <div className="form-row login-utils justify-content-center align-content-center justify-content-sm-start align-content-sm-start">
-          <div className="login-utils-div  d-flex justify-content-between">
-            Already a user?{' '}
-            <Link to="/login" className="ml-2">
-              Login
-            </Link>
-          </div>
-          <div className="login-utils-div">
-            <Link to="/forgetpassword">Forgot your password?</Link>
-          </div>
-        </div> */}
       </form>
     );
   }
