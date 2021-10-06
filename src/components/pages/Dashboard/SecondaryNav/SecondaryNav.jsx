@@ -27,7 +27,7 @@ export default class SecondaryNav extends Component {
           <Col className="text-center p-3">
             <Link to="/dashboard">
               <span
-                class="fa fa-shopping-cart"
+                className="fa fa-shopping-cart"
                 style={{
                   fontSize: 'xx-large',
                   fontWeight: '800',

@@ -9,6 +9,7 @@ import Cart from './Cart/Cart';
 import Wishlist from './Wishlist/Wishlist';
 import Products from './Products/Products';
 import UserProfile from './UserProfile/UserProfile';
+import ProductDetails from './ProductDetails/ProductDetails';
 import MainNav from './MainNav/MainNav';
 import SecondaryNav from './SecondaryNav/SecondaryNav';
 
@@ -48,6 +49,10 @@ export default withRouter(
                     <Route path={path + '/cart'} exact component={Cart} />
                     <Route path={path + '/wishlist'} component={Wishlist} />
                     <Route path={path + '/products'} component={Products} />
+                    <Route
+                      path={path + '/productdetails/:id'}
+                      component={ProductDetails}
+                    />
                     <Route
                       path={path + '/userprofile/:id'}
                       component={UserProfile}

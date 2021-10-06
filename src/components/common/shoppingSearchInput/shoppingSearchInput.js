@@ -16,7 +16,7 @@ const ShoppingSearchInput = () => {
           right: i18n.language === 'ar' ? '0px' : 'unset',
           left: i18n.language === 'ar' ? 'unset' : '0px',
         }}>
-        <i class="fa fa-search"></i>
+        <i className="fa fa-search"></i>
       </InputGroup.Text>
       <FormControl
         className="shopping-search-input"
