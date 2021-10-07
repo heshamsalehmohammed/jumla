@@ -12,6 +12,7 @@ import UserProfile from './UserProfile/UserProfile';
 import ProductDetails from './ProductDetails/ProductDetails';
 import MainNav from './MainNav/MainNav';
 import SecondaryNav from './SecondaryNav/SecondaryNav';
+import ProductsNavBar from './Products/ProductsNavBar/ProductsNavBar';
 
 export default withRouter(
   class Dashboard extends Component {
@@ -32,6 +33,7 @@ export default withRouter(
             <div className="page-wrapper chiller-theme ">
               <MainNav />
               <SecondaryNav/>
+              <ProductsNavBar/>
               <Sidebar />
               <main className="page-content">
                 <div className="container-fluid" style={{overflow: 'hidden'}}>

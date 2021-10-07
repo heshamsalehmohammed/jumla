@@ -39,13 +39,13 @@ export default withTranslation()(
             className={'justify-content-md-center'}>
             <Nav className="mr-auto">
               <NavProfileDropDown user={user}/>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/dashboard/wishlist">
+              <Nav.Link as={Link} className="nav-item nav-link p-2" to="/dashboard/wishlist">
                 Wishlist
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/dashboard/cart">
+              <Nav.Link as={Link} className="nav-item nav-link  p-2" to="/dashboard/cart">
                 My Cart
               </Nav.Link>
-              <Nav.Link as={Link} className="nav-item nav-link" to="/dashboard/checkout">
+              <Nav.Link as={Link} className="nav-item nav-link  p-2" to="/dashboard/checkout">
                 Checkout
               </Nav.Link>
             </Nav>

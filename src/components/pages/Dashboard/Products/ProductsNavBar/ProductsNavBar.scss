@@ -1,0 +1,18 @@
+.list-group-categories{
+    display: flex;
+    flex-wrap: wrap;
+}
+.list-group-categories-item{
+    position: relative;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #212529;
+    text-decoration: none;
+    background-color: #fff;
+    box-shadow: 0px 0px 3px 1px #dedede;
+    border-radius: 7px;
+}
+
+.list-group-categories-item:hover{
+    box-shadow: 0px 0px 3px 1px #f95c5c42;
+}

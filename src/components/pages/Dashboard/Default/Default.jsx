@@ -1,5 +1,6 @@
 import './Default.scss';
 import React, {Component} from 'react';
+import Products from '../Products/Products';
 
 export default class Default extends Component {
   constructor(props) {
@@ -8,6 +9,10 @@ export default class Default extends Component {
   }
 
   render() {
-    return <div>Default</div>;
+    return (
+      <>
+        <Products />
+      </>
+    );
   }
 }

@@ -839,10 +839,11 @@ body {
 #show-sidebar {
   position: fixed;
   left: 0;
-  top: 46px;
+  top: 12px;
   border-radius: 0 4px 4px 0px;
   width: 35px;
   transition-delay: 0.3s;
+  z-index: 10001;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -854,7 +855,7 @@ body {
 .sidebar-wrapper {
   width: 260px;
   height: calc(100%);
-  max-height: calc(100% - 62px);
+  max-height: calc(100% - 56px);
   position: fixed;
   bottom: 0;
   left: -300px;
