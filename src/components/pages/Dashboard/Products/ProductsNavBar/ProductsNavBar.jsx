@@ -14,12 +14,14 @@ const ProductsNavBar = withRouter((props) => {
 
   return (
     <Container>
-      <ListGroup bsPrefix='list-group-categories' horizontal>
+      <ListGroup bsPrefix="list-group-categories" horizontal>
         {categories.map((category, index) => {
           return (
-            <ListGroup.Item className="m-1" bsPrefix='list-group-categories-item'>
+            <ListGroup.Item
+              className="m-1"
+              bsPrefix="list-group-categories-item"
+              key={index}>
               <Nav.Link
-                key={index}
                 as={Link}
                 className="nav-item nav-link"
                 to={`/dashboard/products?cat=${category.id}`}>

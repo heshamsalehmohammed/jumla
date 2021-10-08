@@ -13,6 +13,7 @@ import ProductDetails from './ProductDetails/ProductDetails';
 import MainNav from './MainNav/MainNav';
 import SecondaryNav from './SecondaryNav/SecondaryNav';
 import ProductsNavBar from './Products/ProductsNavBar/ProductsNavBar';
+import AdCarousel from './AdCarousel/AdCarousel';
 
 export default withRouter(
   class Dashboard extends Component {
@@ -34,6 +35,7 @@ export default withRouter(
               <MainNav />
               <SecondaryNav/>
               <ProductsNavBar/>
+              <AdCarousel/>
               <Sidebar />
               <main className="page-content">
                 <div className="container-fluid" style={{overflow: 'hidden'}}>

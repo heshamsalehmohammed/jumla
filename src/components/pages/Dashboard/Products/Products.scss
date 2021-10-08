@@ -98,7 +98,7 @@
 
 .product-card {
   width: 280px;
-  border-radius: 20px !important;
+  border-radius: 9px !important;
   height: 400px;
   overflow: hidden;
   cursor: pointer;
@@ -161,8 +161,18 @@
   text-align: right !important;
 }
 
-.pi {
-  color: #c73737;
-  font-size: larger;
-  font-weight: bolder;
+.fa-cart-plus,
+.fa-cart-arrow-down,
+.fa-heart {
+  color: #4ea2fe !important;
+  font-size: 20px !important;
+  font-weight: bolder !important;
+}
+
+.fa-active {
+  color: #fe5657 !important;
+}
+
+.categories-filter-col {
+  max-width: 265px !important;
 }

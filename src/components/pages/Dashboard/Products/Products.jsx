@@ -6,7 +6,7 @@ import './Products.scss';
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
-import {Button} from 'primereact/button';
+import Button from 'react-bootstrap/Button';
 import {Dropdown} from 'primereact/dropdown';
 import {Rating} from 'primereact/rating';
 import {withRouter} from 'react-router-dom';
@@ -16,6 +16,14 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+
+import {
+  cart_RemoveProduct,
+  cart_AddProduct,
+  wishlist_AddProduct,
+  wishlist_RemoveProduct,
+} from '../../../../redux/actionCreators/cartActionCreators';
+import ProductsCategoriesSelection from './ProductsCategoriesSelection/ProductsCategoriesSelection';
 
 const Products = withRouter((props) => {
   const [layout, setLayout] = useState('grid');
@@ -27,7 +35,13 @@ const Products = withRouter((props) => {
     {label: 'Price Low to High', value: 'price'},
   ];
 
+  const dispatch = useDispatch();
+
   const products = useSelector((state) => state.productsState.products);
+  const cartProducts = useSelector((state) => state.cartState.cartProducts);
+  const wishlistProducts = useSelector(
+    (state) => state.cartState.wishlistProducts
+  );
 
   const onSortChange = (event) => {
     const value = event.value;
@@ -78,7 +92,29 @@ const Products = withRouter((props) => {
     );
   };
 
+  const toggleAddingProductToCartHandler = (product, inCart) => {
+    if (inCart) {
+      dispatch(cart_RemoveProduct(product.id));
+    } else {
+      dispatch(cart_AddProduct(product.id, 1));
+    }
+  };
+
+  const toggleAddingProductToWishlistHandler = (product, inWishlist) => {
+    if (inWishlist) {
+      dispatch(wishlist_RemoveProduct(product.id));
+    } else {
+      dispatch(wishlist_AddProduct(product.id));
+    }
+  };
+
   const renderGridItem = (data) => {
+    let inCart =
+      (cartProducts?.findIndex((p) => p.productId === data.id) ?? -1) !== -1;
+    let inWishlist =
+      (wishlistProducts?.findIndex((p) => p.productId === data.id) ?? -1) !==
+      -1;
+
     return (
       <Card className="product-card m-2 p-2">
         <img
@@ -116,26 +152,41 @@ const Products = withRouter((props) => {
                 placement={'top'}
                 overlay={
                   <Tooltip>
-                    <strong>{'Add to cart'}</strong>.
+                    <strong>{inCart ? 'Added to cart' : 'Add to cart'}</strong>
                   </Tooltip>
                 }>
                 <Button
-                  icon="pi pi-shopping-cart"
-                  label=""
-                  className="product-card-button m-1"
-                  disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button>
+                  className="product-card-button m-1 p-1"
+                  variant="light"
+                  disabled={data.inventoryStatus === 'OUTOFSTOCK'}
+                  onClick={() =>
+                    toggleAddingProductToCartHandler(data, inCart)
+                  }>
+                  {!inCart && <i className="fa fa-cart-plus m-1"></i>}
+                  {inCart && (
+                    <i className="fa fa-cart-arrow-down fa-active m-1"></i>
+                  )}
+                </Button>
               </OverlayTrigger>
               <OverlayTrigger
                 placement={'top'}
                 overlay={
                   <Tooltip>
-                    <strong>{'Add to wishlist'}</strong>.
+                    <strong>
+                      {inWishlist ? 'Added to wishlist' : 'Add to wishlist'}
+                    </strong>
                   </Tooltip>
                 }>
                 <Button
-                  icon="pi pi-thumbs-up"
                   label=""
-                  className="product-card-button m-1"></Button>
+                  className="product-card-button m-1 p-1"
+                  variant="light"
+                  onClick={() =>
+                    toggleAddingProductToWishlistHandler(data, inWishlist)
+                  }>
+                  {!inWishlist && <i className="fa fa-heart m-1"></i>}
+                  {inWishlist && <i className="fa fa-heart fa-active m-1"></i>}
+                </Button>
               </OverlayTrigger>
             </div>
           </div>
@@ -166,7 +217,7 @@ const Products = withRouter((props) => {
           />
         </Col>
         <Col xs={6} className="d-flex justify-content-end">
-{/*           <DataViewLayoutOptions
+          {/*           <DataViewLayoutOptions
             layout={layout}
             onChange={(e) => setLayout(e.value)}
           /> */}
@@ -178,16 +229,23 @@ const Products = withRouter((props) => {
   const header = renderHeader();
 
   return (
-    <DataView
-      value={products}
-      layout={layout}
-      header={header}
-      itemTemplate={itemTemplate}
-      paginator
-      rows={9}
-      sortOrder={sortOrder}
-      sortField={sortField}
-    />
+    <Row className='justify-content-center'>
+      <Col md={3} className='categories-filter-col'>
+        <ProductsCategoriesSelection />
+      </Col>
+      <Col md={9}>
+        <DataView
+          value={products}
+          layout={layout}
+          header={header}
+          itemTemplate={itemTemplate}
+          paginator
+          rows={9}
+          sortOrder={sortOrder}
+          sortField={sortField}
+        />
+      </Col>
+    </Row>
   );
 });
 

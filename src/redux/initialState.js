@@ -1,11 +1,15 @@
 const initialState = {
   cartState: {
-    orderedProducts: [
+    cartProducts: [
       {productId: 1, count: 1},
       {productId: 2, count: 4},
       {productId: 5, count: 3},
       {productId: 4, count: 1},
     ],
+    wishlistProducts:[
+      {productId: 5},
+      {productId: 4},
+    ]
   },
   productsState: {
     products: [

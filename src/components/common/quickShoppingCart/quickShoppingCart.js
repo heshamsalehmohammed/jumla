@@ -26,12 +26,12 @@ const QuickShoppingCart = withRouter((props) => {
     history.push('/dashboard/cart');
   };
 
-  const orderedProducts = useSelector(
-    (state) => state.cartState.orderedProducts
+  const cartProducts = useSelector(
+    (state) => state.cartState.cartProducts
   );
 
   const renderCartItems = () => {
-    return orderedProducts.map((orderedProduct) => {
+    return cartProducts.map((orderedProduct) => {
       return (
         <QuickShoppingCartItem key={orderedProduct.productId} orderedProduct={orderedProduct} />
       );
@@ -48,7 +48,7 @@ const QuickShoppingCart = withRouter((props) => {
         }}>
         <Row className="m-1 justify-content-center">
           <Badge bg="secondary" bsPrefix="quick-cart-badge">
-            {orderedProducts.length}
+            {cartProducts.length}
           </Badge>
         </Row>
         <Row className="m-1">
