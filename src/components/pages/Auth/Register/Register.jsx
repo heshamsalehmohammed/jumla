@@ -11,7 +11,7 @@ import {withRouter} from 'react-router-dom';
 
 class Register extends Form {
   state = {
-    data: {email: '', password: '', name: ''},
+    data: {email: '', password: '', name: '', accountType: ''},
     errors: {},
   };
 
@@ -24,7 +24,7 @@ class Register extends Form {
 
   doSubmit = async () => {
     try {
-      debugger
+      debugger;
       const response = await userService.register(this.state.data);
       auth.loginWithJwt(response.headers['x-auth-token']);
       this.props.history.replace('/dashboard');

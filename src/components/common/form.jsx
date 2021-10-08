@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Joi from 'joi-browser';
 import Input from './input';
+import TextAreaInput from './textAreaInput'
 import Select from './select';
 
 class Form extends Component {
@@ -26,7 +27,8 @@ class Form extends Component {
     return error ? error.details[0].message : null;
   };
 
-  handleSubmit = (e) => {debugger
+  handleSubmit = (e) => {
+    debugger;
     e.preventDefault();
 
     const errors = this.validate();
@@ -103,6 +105,35 @@ class Form extends Component {
     return (
       <Input
         type={type}
+        name={name}
+        value={data[name]}
+        label={label}
+        onChange={this.handleChange}
+        error={errors[name]}
+        groupClasses={groupClasses}
+        labelClasses={labelClasses}
+        inputClasses={inputClasses}
+        hasLabel={hasLabel}
+        inputStyle={inputStyle}
+        placeHolder={placeHolder}
+      />
+    );
+  }
+
+  renderTextAreaInput(
+    name,
+    label,
+    groupClasses = 'form-group',
+    labelClasses = 'form-label',
+    inputClasses = 'form-control',
+    hasLabel = true,
+    inputStyle = {},
+    placeHolder = ''
+  ) {
+    const {data, errors} = this.state;
+
+    return (
+      <TextAreaInput
         name={name}
         value={data[name]}
         label={label}

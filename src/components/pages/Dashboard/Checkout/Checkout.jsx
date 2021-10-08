@@ -9,9 +9,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Accordion from 'react-bootstrap/Accordion';
+
 import Table from 'react-bootstrap/Table';
 import {getSubtotalPrice} from '../../../../services/cartService'
+import CheckoutAccordionForm from './CheckoutAccordionForm/CheckoutAccordionForm';
 
 const Checkout = (props) => {
   const cartProducts = useSelector((state) => state.cartState.cartProducts);
@@ -32,7 +33,7 @@ const Checkout = (props) => {
     <Row className="justify-content-center p-2">
       <Col
         md={4}
-        className="checkout-summury-col  d-flex justify-content-center flex-column">
+        className="checkout-summury-col  d-flex flex-column">
         <h3 className="text-center mb-2">Order Summary</h3>
         <Table
           className="cart-summury-table"
@@ -79,26 +80,7 @@ const Checkout = (props) => {
         <Button>Place Order</Button>
       </Col>
       <Col md={8}>
-        <Accordion defaultActiveKey="0">
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>Billing Details</Accordion.Header>
-            <Accordion.Body>
-             
-            </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>Shipping Address</Accordion.Header>
-            <Accordion.Body>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+        <CheckoutAccordionForm/>
       </Col>
     </Row>
   );
