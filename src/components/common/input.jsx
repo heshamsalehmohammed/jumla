@@ -13,11 +13,20 @@ const Input = ({
   hasLabel,
   inputStyle,
   placeHolder,
+  onChange,
   ...rest
 }) => {
   const isCheckbox = type === 'checkbox';
   const isPassword = type === 'password';
   const {t, i18n} = useTranslation();
+
+  const inputChangeHandler = (e) => {
+    if (isCheckbox) {
+      e.currentTarget.value = Boolean(e.currentTarget.value);
+    }
+    onChange(e);
+  };
+
   return (
     <div className={groupClasses}>
       {!isCheckbox && hasLabel && (
@@ -27,6 +36,7 @@ const Input = ({
       )}
       <input
         {...rest}
+        onChange={inputChangeHandler}
         type={type}
         autoComplete={isPassword ? 'current-password' : ''}
         name={name}

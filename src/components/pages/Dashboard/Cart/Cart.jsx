@@ -17,7 +17,8 @@ import {
   cart_UpdateProductCount,
   cart_RemoveProduct,
 } from '../../../../redux/actionCreators/cartActionCreators';
-import {getSubtotalPrice} from '../../../../services/cartService'
+import {getSubtotalPrice} from '../../../../services/cartService';
+import ProductValueDecreaseIncreaseButton from './../../../common/productValueDecreaseIncreaseButton/productValueDecreaseIncreaseButton';
 
 const Cart = (props) => {
   const cartProducts = useSelector((state) => state.cartState.cartProducts);
@@ -71,42 +72,16 @@ const Cart = (props) => {
   const trashClickHandler = (productId) => {
     dispatch(cart_RemoveProduct(productId));
   };
-  const decreaseClickHandler = (productId) => {
-    dispatch(cart_DecreaseProductCount(productId, 1));
-  };
-  const countChangeHandler = (e, productId) => {
-    dispatch(cart_UpdateProductCount(productId, Number(e.target.value)));
-  };
-  const increaseClickHandler = (productId) => {
-    dispatch(cart_IncreaseProductCount(productId, 1));
-  };
 
   const countBodyTemplate = (rowData) => {
     const orderedProduct = cartProducts.find(
       (cp) => cp.productId === rowData.id
     );
     return (
-      <div className="input-group justify-content-center test-center increase-decrease-group">
-        <div
-          className="value-button decrease"
-          value="Decrease Value"
-          onClick={() => decreaseClickHandler(rowData.id)}>
-          <i className="fa fa-minus"></i>
-        </div>
-        <input
-          type="number"
-          id="number"
-          value={orderedProduct.count}
-          onChange={(e) => countChangeHandler(e, rowData.id)}
-          autoComplete="off"
-        />
-        <div
-          className="value-button increase"
-          value="Increase Value"
-          onClick={() => increaseClickHandler(rowData.id)}>
-          <i className="fa fa-plus"></i>
-        </div>
-      </div>
+      <ProductValueDecreaseIncreaseButton
+        productId={rowData.id}
+        productCount={orderedProduct.count}
+      />
     );
   };
 

@@ -10,6 +10,7 @@ import {
   cart_UpdateProductCount,
   cart_RemoveProduct,
 } from '../../../../redux/actionCreators/cartActionCreators';
+import ProductValueDecreaseIncreaseButton from '../../productValueDecreaseIncreaseButton/productValueDecreaseIncreaseButton';
 
 const QuickShoppingCartItemgCartItem = (props) => {
   const {orderedProduct} = props;
@@ -22,20 +23,9 @@ const QuickShoppingCartItemgCartItem = (props) => {
   const trashClickHandler = () => {
     dispatch(cart_RemoveProduct(orderedProduct.productId));
   };
-  const decreaseClickHandler = () => {
-    dispatch(cart_DecreaseProductCount(orderedProduct.productId, 1));
-  };
-  const countChangeHandler = (e) => {
-    dispatch(
-      cart_UpdateProductCount(orderedProduct.productId, Number(e.target.value))
-    );
-  };
-  const increaseClickHandler = () => {
-    dispatch(cart_IncreaseProductCount(orderedProduct.productId, 1));
-  };
 
   return (
-    <Row className="cart-item mb-1">
+    <Row className="cart-item p-2 mb-1">
       <Col xs={3} className="p-1">
         <Link to={`/dashboard/productdetails/${product.id}`}>
           <img
@@ -54,27 +44,10 @@ const QuickShoppingCartItemgCartItem = (props) => {
             <p>{product.price} EGP</p>
           </div>
         </Link>
-        <div className="input-group justify-content-center test-center increase-decrease-group">
-          <div
-            className="value-button decrease"
-            value="Decrease Value"
-            onClick={decreaseClickHandler}>
-            <i className="fa fa-minus"></i>
-          </div>
-          <input
-            type="number"
-            id="number"
-            value={orderedProduct.count}
-            onChange={countChangeHandler}
-            autoComplete="off"
-          />
-          <div
-            className="value-button increase"
-            value="Increase Value"
-            onClick={increaseClickHandler}>
-            <i className="fa fa-plus"></i>
-          </div>
-        </div>
+        <ProductValueDecreaseIncreaseButton
+          productId={product.id}
+          productCount={orderedProduct.count}
+        />
       </Col>
       <Col xs={1} className="text-center d-flex align-items-center p-0">
         <i

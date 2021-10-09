@@ -26,6 +26,8 @@ import {
 import ProductsCategoriesSelection from './ProductsCategoriesSelection/ProductsCategoriesSelection';
 
 const Products = withRouter((props) => {
+  const {history} = props;
+
   const [layout, setLayout] = useState('grid');
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
@@ -115,8 +117,17 @@ const Products = withRouter((props) => {
       (wishlistProducts?.findIndex((p) => p.productId === data.id) ?? -1) !==
       -1;
 
+    const productCardClickHandler = (e) => {
+      if (
+        !e.target.classList.contains('product-card-button') &&
+        !e.target.classList.contains('product-card-button-icon')
+      ) {
+        history.push(`/dashboard/productdetails/${data.id}`);
+      }
+    };
+
     return (
-      <Card className="product-card m-2 p-2">
+      <Card className="product-card m-2 p-2" onClick={productCardClickHandler}>
         <img
           className="card-img-background"
           src={data.mainImage}
@@ -124,13 +135,6 @@ const Products = withRouter((props) => {
         />
         <div className="product-card-content-wrapper">
           <div className="product-card-content-section p-2">
-            {/*             <div className="product-card-category-name">
-              <i className="p-1 m-1 pi pi-tag product-category-icon"></i>
-              <span
-                className={`product-badge`}>
-                {data.categoryName}
-              </span>
-            </div> */}
             <span
               className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>
               {data.inventoryStatus}
@@ -144,7 +148,6 @@ const Products = withRouter((props) => {
               <div className="product-card-product-description text-right">
                 {data.description}
               </div>
-              {/* <Rating className='' value={data.rating} readOnly cancel={false}></Rating> */}
               <span className="product-card-product-price">${data.price}</span>
             </div>
             <div className=" d-flex justify-content-center p-2 pt-0">
@@ -162,9 +165,11 @@ const Products = withRouter((props) => {
                   onClick={() =>
                     toggleAddingProductToCartHandler(data, inCart)
                   }>
-                  {!inCart && <i className="fa fa-cart-plus m-1"></i>}
+                  {!inCart && (
+                    <i className="product-card-button-icon fa fa-cart-plus m-1"></i>
+                  )}
                   {inCart && (
-                    <i className="fa fa-cart-arrow-down fa-active m-1"></i>
+                    <i className="product-card-button-icon fa fa-cart-arrow-down fa-active m-1"></i>
                   )}
                 </Button>
               </OverlayTrigger>
@@ -184,8 +189,12 @@ const Products = withRouter((props) => {
                   onClick={() =>
                     toggleAddingProductToWishlistHandler(data, inWishlist)
                   }>
-                  {!inWishlist && <i className="fa fa-heart m-1"></i>}
-                  {inWishlist && <i className="fa fa-heart fa-active m-1"></i>}
+                  {!inWishlist && (
+                    <i className="product-card-button-icon fa fa-heart m-1"></i>
+                  )}
+                  {inWishlist && (
+                    <i className="product-card-button-icon fa fa-heart fa-active m-1"></i>
+                  )}
                 </Button>
               </OverlayTrigger>
             </div>
@@ -229,8 +238,8 @@ const Products = withRouter((props) => {
   const header = renderHeader();
 
   return (
-    <Row className='justify-content-center'>
-      <Col md={3} className='categories-filter-col'>
+    <Row className="justify-content-center">
+      <Col md={3} className="categories-filter-col">
         <ProductsCategoriesSelection />
       </Col>
       <Col md={9}>

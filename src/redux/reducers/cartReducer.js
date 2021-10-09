@@ -4,15 +4,30 @@ import actionsTypes from '../actionTypes/cartActionTypes';
 const cartReducer = (state = initialState.cartState, action) => {
   switch (action.type) {
     case actionsTypes.INCREASE_CART_PRODUCT_COUNT: {
+      let product = state.cartProducts.find(
+        (op) => op.productId === action.payload.productId
+      );
+      if (product) {
+        return {
+          ...state,
+          cartProducts: state.cartProducts.map((op) => ({
+            ...op,
+            count:
+              op.productId === action.payload.productId
+                ? op.count + action.payload.increasingAmount
+                : op.count,
+          })),
+        };
+      }
       return {
         ...state,
-        cartProducts: state.cartProducts.map((op) => ({
-          ...op,
-          count:
-            op.productId === action.payload.productId
-              ? op.count + action.payload.increasingAmount
-              : op.count,
-        })),
+        cartProducts: [
+          ...state.cartProducts,
+          {
+            productId: action.payload.productId,
+            count: action.payload.increasingAmount,
+          },
+        ],
       };
     }
     case actionsTypes.DECREASE_CART_PRODUCT_COUNT: {
@@ -20,7 +35,7 @@ const cartReducer = (state = initialState.cartState, action) => {
         (op) => op.productId === action.payload.productId
       );
 
-      if (product.count - action.payload.decreasingAmount <= 0) {
+      if ((product?.count ?? 0) - action.payload.decreasingAmount <= 0) {
         return {
           ...state,
           cartProducts: [
