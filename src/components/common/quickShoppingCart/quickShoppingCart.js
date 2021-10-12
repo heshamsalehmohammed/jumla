@@ -63,7 +63,7 @@ const QuickShoppingCart = withRouter((props) => {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Quick Shopping Cart</Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>
+        <Offcanvas.Body className='p-4'>
           <Container className="h-100 p-0 pb-4">
             {renderCartItems()}
             <Row

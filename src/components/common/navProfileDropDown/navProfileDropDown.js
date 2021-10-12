@@ -16,7 +16,7 @@ const NavProfileDropDown = (props) => {
   }
 
   return (
-    <Dropdown className="d-inline mx-2">
+    <Dropdown className="d-inline mx-2 d-flex justify-content-center">
       <Dropdown.Toggle
         id="dropdown-autoclose-true"
         bsPrefix="nav-custom-profile-dropdown">
