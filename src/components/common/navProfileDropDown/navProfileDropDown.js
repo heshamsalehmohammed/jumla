@@ -1,7 +1,7 @@
 import './navProfileDropDown.scss';
 import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
-import {Link, NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import DPP from '../../../assets/images/DPP.png';
 import {useTranslation} from 'react-i18next';
 

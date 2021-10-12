@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
+import auth from '../../../services/authService';
 import UserImage from '../../../assets/images/DPP.png';
 
 export class Sidebar extends Component {
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   sidebarDDHeaderHandler(e) {
     let parent = e.target.parentElement;
-    while(!parent.classList.contains('sidebar-dropdown')){
+    while (!parent.classList.contains('sidebar-dropdown')) {
       parent = parent.parentElement;
     }
     if (parent.classList.contains('active')) {
-      parent.classList.remove('active')
+      parent.classList.remove('active');
     } else {
-      parent.classList.add('active')
+      parent.classList.add('active');
     }
   }
 
@@ -26,6 +27,7 @@ export class Sidebar extends Component {
   }
 
   render() {
+    const user = auth.getCurrentUser();
     return (
       <React.Fragment>
         <div
@@ -42,61 +44,51 @@ export class Sidebar extends Component {
               </div>
             </div>
             <div className="sidebar-header">
-              <div className="user-pic">
-                <img
-                  className="img-responsive img-rounded"
-                  src={UserImage}
-                  alt="User"
-                />
-              </div>
-              <div className="user-info">
-                <span className="user-name">{'hesham saleh'}</span>
-                <span className="user-role">Admin</span>
-                <span className="user-status">
-                  <i className="fa fa-circle"></i> <span>Online</span>
-                </span>
-              </div>
+              <Link to={`/dashboard/userprofile/${user.id}`}>
+                <div className="user-pic">
+                  <img
+                    className="img-responsive img-rounded"
+                    src={UserImage}
+                    alt="User"
+                  />
+                </div>
+                <div className="user-info">
+                  <span className="user-name">{'hesham saleh'}</span>
+                  <span className="user-role">Admin</span>
+                  <span className="user-status">
+                    <i className="fa fa-circle"></i> <span>Online</span>
+                  </span>
+                </div>
+              </Link>
             </div>
 
             <div className="sidebar-menu">
               <ul>
                 <li>
-                  <a href="\#" id="home">
+                  <Link to="/dashboard">
                     <i className="fa fab fa-home"></i>
-                    <span>Home</span>
-                  </a>
+                    <span className="m-1">Home</span>
+                  </Link>
                 </li>
 
-                <li>
-                  <a href="\#" id="sentrequests">
-                    <i className="fa fab fa-share-square"></i>
-                    <span>Sent Requests</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="\#" id="recievedrequests">
-                    <i
-                      style={{transform: 'rotateY(180deg)'}}
-                      className="fa fab fa-share-square"></i>
-                    <span>Recieved Requests</span>
-                  </a>
-                </li>
-
-                <li className="header-menu">
+                {/*                 <li className="header-menu">
                   <span>Configurations</span>
-                </li>
+                </li> */}
+
                 <li className="sidebar-dropdown">
                   <div
                     className="sidebar-dropdown-header"
                     onClick={this.sidebarDDHeaderHandler}>
-                    <i className="fa fab fa-users"></i>{' '}
-                    <span>Profile Settings</span>
+                    <i className="fa fab fa-users"></i>
+                    <span className="m-1">Products</span>
                   </div>
                   <div className="sidebar-submenu">
                     <ul>
                       <li>
-                        <a href="\#">Manage Users</a>
+                        <Link to="/dashboard/addproduct">Add Product</Link>
+                      </li>
+                      <li>
+                        <Link to="/dashboard/products">All Products</Link>
                       </li>
                     </ul>
                   </div>
@@ -106,13 +98,13 @@ export class Sidebar extends Component {
                   <div
                     className="sidebar-dropdown-header"
                     onClick={this.sidebarDDHeaderHandler}>
-                    <i className="fa fab fa-podcast"></i>{' '}
-                    <span>Notifications Settings</span>
+                    <i className="fa fab fa-podcast"></i>
+                    <span className="m-1">Orders</span>
                   </div>
                   <div className="sidebar-submenu">
                     <ul>
                       <li>
-                        <a href="\#">Pending Cases</a>
+                        <Link to="/dashboard/orders">All Orders</Link>
                       </li>
                     </ul>
                   </div>
@@ -122,18 +114,9 @@ export class Sidebar extends Component {
           </div>
 
           <div className="sidebar-footer">
-            <a href="\#">
-              <i className="fa fa-bell"></i>
-            </a>
-            <a href="\#">
-              <i className="fa fa-envelope"></i>
-            </a>
-            <a href="\#">
-              <i className="fa fa-cog"></i>
-            </a>
-            <a href="\#">
+            <Link to="/logout">
               <i className="fa fa-power-off"></i>
-            </a>
+            </Link>
           </div>
         </nav>
       </React.Fragment>

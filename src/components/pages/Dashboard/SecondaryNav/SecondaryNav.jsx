@@ -16,7 +16,7 @@ export default class SecondaryNav extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className='secondary-nav-container'>
         <Row>
           <Col>
             <QuickShoppingCart />

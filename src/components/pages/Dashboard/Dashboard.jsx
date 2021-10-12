@@ -8,12 +8,15 @@ import Checkout from './Checkout/Checkout';
 import Cart from './Cart/Cart';
 import Wishlist from './Wishlist/Wishlist';
 import Products from './Products/Products';
-import UserProfile from './UserProfile/UserProfile';
 import ProductDetails from './ProductDetails/ProductDetails';
+import Orders from './Orders/Orders';
+import OrderDetails from './OrderDetails/OrderDetails';
+import UserProfile from './UserProfile/UserProfile';
 import MainNav from './MainNav/MainNav';
 import SecondaryNav from './SecondaryNav/SecondaryNav';
 import ProductsNavBar from './Products/ProductsNavBar/ProductsNavBar';
 import AdCarousel from './AdCarousel/AdCarousel';
+import AddProduct from './AddProduct/AddProduct';
 
 export default withRouter(
   class Dashboard extends Component {
@@ -64,6 +67,15 @@ export default withRouter(
                     <Route
                       path={path + '/productdetails/:id'}
                       component={ProductDetails}
+                    />
+                    <Route
+                      path={path + '/addproduct'}
+                      component={AddProduct}
+                    />
+                    <Route path={path + '/orders'} component={Orders} />
+                    <Route
+                      path={path + '/orderdetails/:id'}
+                      component={OrderDetails}
                     />
                     <Route
                       path={path + '/userprofile/:id'}

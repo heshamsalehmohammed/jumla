@@ -83,7 +83,7 @@ const ProductDetails = withRouter((props) => {
         </div>
         <div className="sub-images-container p-2">
           <ListGroup bsPrefix="list-group-product-sub-images" horizontal>
-            {productDetails.images.map((imgSrc, index) => {
+            {productDetails.subImages.map((imgSrc, index) => {
               return (
                 <ListGroup.Item
                   className="m-1"

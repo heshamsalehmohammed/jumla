@@ -2,8 +2,8 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import './Cart.scss';
-import React, {useState, useEffect, useRef} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import React from 'react';
+import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
@@ -11,12 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import {
-  cart_IncreaseProductCount,
-  cart_DecreaseProductCount,
-  cart_UpdateProductCount,
-  cart_RemoveProduct,
-} from '../../../../redux/actionCreators/cartActionCreators';
+import {cart_RemoveProduct} from '../../../../redux/actionCreators/cartActionCreators';
 import {getSubtotalPrice} from '../../../../services/cartService';
 import ProductValueDecreaseIncreaseButton from './../../../common/productValueDecreaseIncreaseButton/productValueDecreaseIncreaseButton';
 

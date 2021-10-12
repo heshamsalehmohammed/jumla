@@ -1,11 +1,9 @@
 import './MainNav.scss';
 import React, {Component} from 'react';
 import auth from '../../../../services/authService';
-import {Link, NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Dropdown from 'react-bootstrap/Dropdown';
 import {withTranslation} from 'react-i18next';
 
 import NavProfileDropDown from '../../../common/navProfileDropDown/navProfileDropDown';
@@ -28,7 +26,7 @@ export default withTranslation()(
           expand="lg"
           bg="light"
           variant="light"
-          sticky="top"
+          fixed="top"
           className="">
 {/*           <Link className="navbar-brand" to="/">
             {t('nav.home')}
