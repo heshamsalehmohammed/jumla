@@ -122,7 +122,15 @@ const Products = withRouter((props) => {
         !e.target.classList.contains('product-card-button') &&
         !e.target.classList.contains('product-card-button-icon')
       ) {
-        history.push(`/dashboard/productdetails/${data.id}`);
+        document.body.classList.add('moving');
+        document.getElementById('moving-overlay').classList.add('show');
+        setTimeout(() => {
+          document.body.classList.remove('moving');
+        }, 800);
+        setTimeout(() => {
+          document.getElementById('moving-overlay').classList.remove('show');
+          history.push(`/dashboard/productdetails/${data.id}`);
+        }, 1200);
       }
     };
 
@@ -148,55 +156,76 @@ const Products = withRouter((props) => {
               <div className="product-card-product-description text-right">
                 {data.description}
               </div>
-              <span className="product-card-product-price">${data.price}</span>
             </div>
-            <div className=" d-flex justify-content-center p-2 pt-0">
-              <OverlayTrigger
-                placement={'top'}
-                overlay={
-                  <Tooltip>
-                    <strong>{inCart ? 'Added to cart' : 'Add to cart'}</strong>
-                  </Tooltip>
-                }>
-                <Button
-                  className="product-card-button m-1 p-1"
-                  variant="light"
-                  disabled={data.inventoryStatus === 'OUTOFSTOCK'}
-                  onClick={() =>
-                    toggleAddingProductToCartHandler(data, inCart)
+            <div className=" d-flex justify-content-center flex-column p-2 pt-0">
+              <div className="product-card-product-price text-center p-2">
+                {data.oldPrice && (
+                  <span
+                    className="p-1"
+                    style={{textDecoration: 'line-through', color: 'red'}}>
+                    {data.oldPrice + data.priceCurrency}
+                  </span>
+                )}
+                <span style={{color: 'blue'}} className="p-1">
+                  {data.price + data.priceCurrency}
+                </span>
+              </div>
+              <div className=" d-flex justify-content-center p-2">
+                <OverlayTrigger
+                  placement={'top'}
+                  overlay={
+                    <Tooltip>
+                      <strong>
+                        {inCart ? 'Added to cart' : 'Add to cart'}
+                      </strong>
+                    </Tooltip>
                   }>
-                  {!inCart && (
-                    <i className="product-card-button-icon fa fa-cart-plus m-1"></i>
-                  )}
-                  {inCart && (
-                    <i className="product-card-button-icon fa fa-cart-arrow-down fa-active m-1"></i>
-                  )}
-                </Button>
-              </OverlayTrigger>
-              <OverlayTrigger
-                placement={'top'}
-                overlay={
-                  <Tooltip>
-                    <strong>
-                      {inWishlist ? 'Added to wishlist' : 'Add to wishlist'}
-                    </strong>
-                  </Tooltip>
-                }>
-                <Button
-                  label=""
-                  className="product-card-button m-1 p-1"
-                  variant="light"
-                  onClick={() =>
-                    toggleAddingProductToWishlistHandler(data, inWishlist)
+                  <Button
+                    className="product-card-button m-1 p-1"
+                    variant="light"
+                    disabled={data.inventoryStatus === 'OUTOFSTOCK'}
+                    onClick={() =>
+                      toggleAddingProductToCartHandler(data, inCart)
+                    }>
+                    {!inCart && (
+                      <>
+                        <i className="product-card-button-icon fa fa-cart-plus m-1"></i>{' '}
+                        Add to cart
+                      </>
+                    )}
+                    {inCart && (
+                      <>
+                        <i className="product-card-button-icon fa fa-cart-arrow-down fa-active m-1"></i>{' '}
+                        Added to cart
+                      </>
+                    )}
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement={'top'}
+                  overlay={
+                    <Tooltip>
+                      <strong>
+                        {inWishlist ? 'Added to wishlist' : 'Add to wishlist'}
+                      </strong>
+                    </Tooltip>
                   }>
-                  {!inWishlist && (
-                    <i className="product-card-button-icon fa fa-heart m-1"></i>
-                  )}
-                  {inWishlist && (
-                    <i className="product-card-button-icon fa fa-heart fa-active m-1"></i>
-                  )}
-                </Button>
-              </OverlayTrigger>
+                  <Button
+                    label=""
+                    className="product-card-button m-1 p-1"
+                    variant="light"
+                    onClick={() =>
+                      toggleAddingProductToWishlistHandler(data, inWishlist)
+                    }>
+                    {!inWishlist && (
+                      <i className="product-card-button-icon fa fa-heart m-1"></i>
+                    )}
+                    {inWishlist && (
+                      <i className="product-card-button-icon fa fa-heart fa-active m-1"></i>
+                    )}
+                  </Button>
+                </OverlayTrigger>
+              </div>
             </div>
           </div>
         </div>

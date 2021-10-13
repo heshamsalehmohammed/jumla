@@ -44,11 +44,15 @@ const Cart = (props) => {
     );
   };
 
-  const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+  const nameBodyTemplate = (rowData) => {
+    return (
+      <Link to={`/dashboard/productdetails/${rowData.id}`}>{rowData.name}</Link>
+    );
   };
+
+
   const priceBodyTemplate = (rowData) => {
-    return formatCurrency(rowData.price);
+    return rowData.price + rowData.priceCurrency;
   };
 
   const statusBodyTemplate = (rowData) => {
@@ -107,7 +111,7 @@ const Cart = (props) => {
           value={cartProductsDetails}
           dataKey="id"
           header={header}>
-          <Column field="name" header="Name" sortable />
+          <Column field="name" header="Name" body={nameBodyTemplate} sortable />
           <Column header="Image" body={imageBodyTemplate} />
           <Column
             field="price"

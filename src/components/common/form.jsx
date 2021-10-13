@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Joi from 'joi-browser';
 import Input from './input';
-import TextAreaInput from './textAreaInput'
+import TextAreaInput from './textAreaInput';
+import UploadFiles from './uploadFiles';
 import Select from './select';
 
 class Form extends Component {
@@ -14,7 +15,6 @@ class Form extends Component {
     const options = {abortEarly: false};
     const {error} = Joi.validate(this.state.data, this.schema, options);
     if (!error) return null;
-
     const errors = {};
     for (let item of error.details) errors[item.path[0]] = item.message;
     return errors;
@@ -28,7 +28,6 @@ class Form extends Component {
   };
 
   handleSubmit = (e) => {
-    debugger;
     e.preventDefault();
 
     const errors = this.validate();
@@ -38,7 +37,7 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  handleChange = ({currentTarget: input}) => {debugger
+  handleChange = ({currentTarget: input}) => {
     const errors = {...this.state.errors};
     const errorMessage = this.validateProperty(input);
     if (errorMessage) errors[input.name] = errorMessage;
@@ -98,8 +97,21 @@ class Form extends Component {
     inputClasses = 'form-control',
     hasLabel = true,
     inputStyle = {},
-    placeHolder = ''
+    placeHolder = '',
+    AdditionalHandleChange
   ) {
+    const inputChange = (e) => {
+      this.handleChange(e);
+      if (AdditionalHandleChange) {
+        const name = e.currentTarget.name;
+        const value = e.currentTarget.value;
+
+        setTimeout(() => {
+          AdditionalHandleChange(name, value);
+        }, 500);
+      }
+    };
+
     const {data, errors} = this.state;
 
     return (
@@ -108,7 +120,7 @@ class Form extends Component {
         name={name}
         value={data[name]}
         label={label}
-        onChange={this.handleChange}
+        onChange={inputChange}
         error={errors[name]}
         groupClasses={groupClasses}
         labelClasses={labelClasses}
@@ -145,6 +157,39 @@ class Form extends Component {
         hasLabel={hasLabel}
         inputStyle={inputStyle}
         placeHolder={placeHolder}
+      />
+    );
+  }
+
+  renderFilesUpload(
+    name,
+    label,
+    groupClasses = 'form-group',
+    labelClasses = 'form-label',
+    hasLabel = true,
+    DropzoneStyles = {minWidth: '260px', minHeight: '150px'},
+    DropzoneLabel = 'Drop your files here',
+    DropzoneMaxFiles = 1,
+    DropzoneMaxFileSize = 2998000,
+    DropzoneAccept = '.png,image/*'
+  ) {
+    const {data, errors} = this.state;
+
+    return (
+      <UploadFiles
+        name={name}
+        label={label}
+        error={errors[name]}
+        groupClasses={groupClasses}
+        labelClasses={labelClasses}
+        hasLabel={hasLabel}
+        value={data[name]}
+        onChange={this.handleChange}
+        DropzoneStyles={DropzoneStyles}
+        DropzoneLabel={DropzoneLabel}
+        DropzoneMaxFiles={DropzoneMaxFiles}
+        DropzoneMaxFileSize={DropzoneMaxFileSize}
+        DropzoneAccept={DropzoneAccept}
       />
     );
   }

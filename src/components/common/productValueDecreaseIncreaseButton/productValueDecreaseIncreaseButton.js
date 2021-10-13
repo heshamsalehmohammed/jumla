@@ -9,7 +9,7 @@ import {
 import {useTranslation} from 'react-i18next';
 
 const ProductValueDecreaseIncreaseButton = (props) => {
-  const {productId, productCount} = props;
+  const {productId, productCount, classNames, styles} = props;
   const {t, i18n} = useTranslation();
 
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const ProductValueDecreaseIncreaseButton = (props) => {
   };
 
   return (
-    <div className="input-group justify-content-center test-center increase-decrease-group">
+    <div className={`input-group justify-content-center test-center increase-decrease-group ${classNames}`} style={styles}>
       <div
         className={`value-button decrease ${i18n.language}`}
         value="Decrease Value"

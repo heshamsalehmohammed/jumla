@@ -17,8 +17,8 @@ const Select = ({
       </label>
       <select name={name} id={name} {...rest} className={selectClasses}>
         <option value="" />
-        {options.map((option) => (
-          <option key={option._id} value={option._id}>
+        {options.map((option, index) => (
+          <option key={index} value={option._id}>
             {option.name}
           </option>
         ))}

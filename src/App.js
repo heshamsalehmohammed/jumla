@@ -8,6 +8,7 @@ import LandingPage from './components/pages/LandingPage/LandingPage';
 import Dashboard from './components/pages/Dashboard/Dashboard';
 import NotFound from './components/pages/NotFound/NotFound';
 import i18n from './118n';
+import MovingOverlay from './components/common/movingOverlay';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path={['/dashboard']} component={Dashboard} />
           <Redirect to="/notfound" />
         </Switch>
+        <MovingOverlay />
       </div>
     </Provider>
   );

@@ -21,11 +21,9 @@ const Orders = withRouter((props) => {
       <Link to={`/dashboard/orderdetails/${rowData.id}`}>{rowData.id}</Link>
     );
   };
-  const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-  };
+
   const priceBodyTemplate = (rowData) => {
-    return formatCurrency(rowData.priceDetails.total);
+    return rowData.priceDetails.total + rowData.priceDetails.currency;
   };
 
   const statusBodyTemplate = (rowData) => {

@@ -115,83 +115,95 @@ const ProductDetails = withRouter((props) => {
                 {productDetails.categoryName}
               </span>
             </div>
-            <div className="product-details-content-sub-section p-2">
-              <div className="product-details-product-name">
+            <div className="product-details-content-sub-section" style={{
+                  paddingLeft: '0.5rem',
+                  paddingRight: '0.5rem'
+            }}>
+              <div className="product-details-product-name p-2">
                 {productDetails.name}
               </div>
-              <div className="product-details-product-description">
+              <div className="product-details-product-description p-2">
                 {productDetails.description}
               </div>
-              <span className="product-details-product-price">
-                ${productDetails.price}
+              <span className="product-details-product-price p-2">
+                {productDetails.price + productDetails.priceCurrency}
               </span>
             </div>
           </div>
-          <div className="product-actions-content-section p-2">
-            <OverlayTrigger
-              placement={'top'}
-              overlay={
-                <Tooltip>
-                  <strong>{isInCart ? 'Added to cart' : 'Add to cart'}</strong>
-                </Tooltip>
-              }>
-              <Button
-                className="product-details-button m-1 p-1"
-                variant="light"
-                disabled={productDetails.inventoryStatus === 'OUTOFSTOCK'}
-                onClick={() =>
-                  toggleAddingProductToCartHandler(productDetails, isInCart)
+          <div className="product-actions-content-section p-2 d-flex justify-content-between">
+            <div className="d-flex">
+              <OverlayTrigger
+                placement={'top'}
+                overlay={
+                  <Tooltip>
+                    <strong>
+                      {isInCart ? 'Added to cart' : 'Add to cart'}
+                    </strong>
+                  </Tooltip>
                 }>
-                {!isInCart && (
-                  <>
-                    <i className="product-details-button-icon fa fa-cart-plus m-1"></i>{' '}
-                    Add to cart
-                  </>
-                )}
-                {isInCart && (
-                  <>
-                    <i className="product-details-button-icon fa fa-cart-arrow-down fa-active m-1"></i>{' '}
-                    Added to cart
-                  </>
-                )}
-              </Button>
-            </OverlayTrigger>
-            <OverlayTrigger
-              placement={'top'}
-              overlay={
-                <Tooltip>
-                  <strong>
-                    {isInWishlist ? 'Added to wishlist' : 'Add to wishlist'}
-                  </strong>
-                </Tooltip>
-              }>
-              <Button
-                label=""
-                className="product-details-button m-1 p-1"
-                variant="light"
-                onClick={() =>
-                  toggleAddingProductToWishlistHandler(
-                    productDetails,
-                    isInWishlist
-                  )
+                <Button
+                  className="product-details-button m-1 p-1"
+                  variant="light"
+                  disabled={productDetails.inventoryStatus === 'OUTOFSTOCK'}
+                  onClick={() =>
+                    toggleAddingProductToCartHandler(productDetails, isInCart)
+                  }>
+                  {!isInCart && (
+                    <>
+                      <i className="product-details-button-icon fa fa-cart-plus m-1"></i>{' '}
+                      Add to cart
+                    </>
+                  )}
+                  {isInCart && (
+                    <>
+                      <i className="product-details-button-icon fa fa-cart-arrow-down fa-active m-1"></i>{' '}
+                      Added to cart
+                    </>
+                  )}
+                </Button>
+              </OverlayTrigger>
+              <OverlayTrigger
+                placement={'top'}
+                overlay={
+                  <Tooltip>
+                    <strong>
+                      {isInWishlist ? 'Added to wishlist' : 'Add to wishlist'}
+                    </strong>
+                  </Tooltip>
                 }>
-                {!isInWishlist && (
-                  <>
-                    <i className="product-details-button-icon fa fa-heart m-1"></i>{' '}
-                    Add to wishlist
-                  </>
-                )}
-                {isInWishlist && (
-                  <>
-                    <i className="product-details-button-icon fa fa-heart fa-active m-1"></i>{' '}
-                    Added to wishlist
-                  </>
-                )}
-              </Button>
-            </OverlayTrigger>
+                <Button
+                  label=""
+                  className="product-details-button m-1 p-1"
+                  variant="light"
+                  onClick={() =>
+                    toggleAddingProductToWishlistHandler(
+                      productDetails,
+                      isInWishlist
+                    )
+                  }>
+                  {!isInWishlist && (
+                    <>
+                      <i className="product-details-button-icon fa fa-heart m-1"></i>{' '}
+                      Add to wishlist
+                    </>
+                  )}
+                  {isInWishlist && (
+                    <>
+                      <i className="product-details-button-icon fa fa-heart fa-active m-1"></i>{' '}
+                      Added to wishlist
+                    </>
+                  )}
+                </Button>
+              </OverlayTrigger>
+            </div>
             <ProductValueDecreaseIncreaseButton
               productId={productDetails.id}
               productCount={orderedProduct?.count ?? 0}
+              classNames="p-2"
+              styles={{
+                display: 'inline-flex',
+                width: 'unset',
+              }}
             />
           </div>
         </div>

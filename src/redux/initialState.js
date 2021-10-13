@@ -15,11 +15,14 @@ const initialState = {
         name: 'p1',
         description: 'p1',
         totalNumAvailableInStock: 12,
-        specifications: {
-          weight: '23kg',
-          height: '23cm',
-        },
+        specifications: [
+          {
+            name: 'weight',
+            value: '23kg',
+          },
+        ],
         price: 23,
+        oldPrice: 50,
         priceCurrency: 'EGP',
         mainImage: 'https://source.unsplash.com/1600x900/?product',
         subImages: [
@@ -45,11 +48,14 @@ const initialState = {
         name: 'p1',
         description: 'p1',
         totalNumAvailableInStock: 12,
-        specifications: {
-          weight: '23kg',
-          height: '23cm',
-        },
+        specifications: [
+          {
+            name: 'weight',
+            value: '23kg',
+          },
+        ],
         price: 23,
+        oldPrice: 50,
         priceCurrency: 'EGP',
         mainImage: 'https://source.unsplash.com/1600x900/?product',
         subImages: [
@@ -75,11 +81,14 @@ const initialState = {
         name: 'p1',
         description: 'p1',
         totalNumAvailableInStock: 12,
-        specifications: {
-          weight: '23kg',
-          height: '23cm',
-        },
+        specifications: [
+          {
+            name: 'weight',
+            value: '23kg',
+          },
+        ],
         price: 23,
+        oldPrice: 50,
         priceCurrency: 'EGP',
         mainImage: 'https://source.unsplash.com/1600x900/?product',
         subImages: [
@@ -105,10 +114,12 @@ const initialState = {
         name: 'p1',
         description: 'p1',
         totalNumAvailableInStock: 12,
-        specifications: {
-          weight: '23kg',
-          height: '23cm',
-        },
+        specifications: [
+          {
+            name: 'weight',
+            value: '23kg',
+          },
+        ],
         price: 23,
         priceCurrency: 'EGP',
         mainImage: 'https://source.unsplash.com/1600x900/?product',
@@ -135,10 +146,12 @@ const initialState = {
         name: 'p1',
         description: 'p1',
         totalNumAvailableInStock: 12,
-        specifications: {
-          weight: '23kg',
-          height: '23cm',
-        },
+        specifications: [
+          {
+            name: 'weight',
+            value: '23kg',
+          },
+        ],
         price: 23,
         priceCurrency: 'EGP',
         mainImage: 'https://source.unsplash.com/1600x900/?product',
@@ -233,6 +246,7 @@ const initialState = {
           tax: 0,
           discount: 0,
           total: 50,
+          currency: 'EGP',
         },
         billingDetails: {
           firstName: '',
@@ -263,7 +277,7 @@ const initialState = {
         orderedBy: {
           userId: 4567,
           userName: 'Hesham',
-          profilePicture: 'https://source.unsplash.com/1600x900/?profile'
+          profilePicture: 'https://source.unsplash.com/1600x900/?profile',
         },
         orderStatus: 'pending',
         orderStatusId: 1,
