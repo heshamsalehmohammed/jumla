@@ -91,3 +91,9 @@ export function wislist_RemoveProducts(productsIds) {
     },
   };
 }
+
+export function wislist_EmptyWishlist() {
+  return {
+    type: actionTypes.EMPTY_WISHLIST
+  };
+}

@@ -62,16 +62,13 @@ export default withRouter(
                       component={Checkout}
                     />
                     <Route path={path + '/cart'} exact component={Cart} />
-                    {/*  <Route path={path + '/wishlist'} component={Wishlist} /> */}
+                    <Route path={path + '/wishlist'} component={Wishlist} />
                     <Route path={path + '/products'} component={Products} />
                     <Route
                       path={path + '/productdetails/:id'}
                       component={ProductDetails}
                     />
-                    <Route
-                      path={path + '/addproduct'}
-                      component={AddProduct}
-                    />
+                    <Route path={path + '/addproduct'} component={AddProduct} />
                     <Route path={path + '/orders'} component={Orders} />
                     <Route
                       path={path + '/orderdetails/:id'}

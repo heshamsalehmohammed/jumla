@@ -72,9 +72,12 @@ export default withTranslation()(
                 to="/dashboard/products">
                 All Products
               </Nav.Link>
-              {/*               <Nav.Link as={Link} className="nav-item nav-link p-2" to="/dashboard/wishlist">
+              <Nav.Link
+                as={Link}
+                className="nav-item nav-link p-2"
+                to="/dashboard/wishlist">
                 Wishlist
-              </Nav.Link> */}
+              </Nav.Link>
               <Nav.Link
                 as={Link}
                 className="nav-item nav-link  p-2"

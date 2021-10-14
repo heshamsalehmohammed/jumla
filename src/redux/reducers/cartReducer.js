@@ -107,6 +107,12 @@ const cartReducer = (state = initialState.cartState, action) => {
         cartProducts: [],
       };
     }
+    case actionsTypes.EMPTY_WISHLIST: {
+      return {
+        ...state,
+        wishlistProducts: [],
+      };
+    }
     case actionsTypes.ADD_PRODUCT_TO_CART: {
       return {
         ...state,
