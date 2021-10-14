@@ -4,6 +4,8 @@
 }
 .main-nav {
   min-height: 90px;
+  transition: all 0.3s;
+  transition-timing-function: linear;
   .navbar-toggler {
     padding: 0.3rem;
     .navbar-toggler-icon {

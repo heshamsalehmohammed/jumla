@@ -87,8 +87,8 @@ const Products = withRouter((props) => {
     };
 
     return (
-      <Col lg={9} md={10} xs={12} className=" p-2 mb-1">
-        <Row>
+      <Col lg={9} md={10} xs={12} className=" p-2 mb-1" >
+        <Row onClick={productCardClickHandler}  className="product-list-item">
           <Col xs={3}>
             <img
               className="product-list-item-img"
