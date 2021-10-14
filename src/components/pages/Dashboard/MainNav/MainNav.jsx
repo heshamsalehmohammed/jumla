@@ -57,9 +57,6 @@ export default withTranslation()(
           variant="light"
           fixed="top"
           className={`main-nav ${this.state.navClass}`}>
-          {/*           <Link className="navbar-brand" to="/">
-            {t('nav.home')}
-          </Link> */}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse
             id="responsive-navbar-nav"

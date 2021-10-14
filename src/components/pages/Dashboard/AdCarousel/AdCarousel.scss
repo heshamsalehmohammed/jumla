@@ -13,10 +13,17 @@
 }
 
 .ad-crousel-item-caption {
-  background-color: #fe3f4054;
+  /* background-color: #fe3f4054; */
   color: #fff !important;
 }
 
 .ad-crousel-item-caption p{
   color: #fff !important;
+}
+
+.caption-text{
+  background-color: #000;
+  padding: 0.3rem;
+  display: inline-block;
+  border-radius: 5px;
 }

@@ -102,6 +102,7 @@
   height: 460px;
   overflow: hidden;
   cursor: pointer;
+  box-shadow: 0px 0px 4px 0px #68646461;
 }
 
 .card-img-background {
@@ -137,7 +138,7 @@
 }
 
 .product-card-details-section {
-  background: #f8f9fa;
+  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

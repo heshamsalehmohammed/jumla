@@ -17,6 +17,7 @@ import SecondaryNav from './SecondaryNav/SecondaryNav';
 import ProductsNavBar from './Products/ProductsNavBar/ProductsNavBar';
 import AdCarousel from './AdCarousel/AdCarousel';
 import AddProduct from './AddProduct/AddProduct';
+import Footer from './Footer/Footer';
 
 export default withRouter(
   class Dashboard extends Component {
@@ -82,6 +83,7 @@ export default withRouter(
                   </Switch>
                 </div>
               </main>
+              <Footer/>
             </div>
           </div>
         </div>

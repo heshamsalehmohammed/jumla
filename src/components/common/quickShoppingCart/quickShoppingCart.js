@@ -11,6 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {withRouter} from 'react-router-dom';
 import QuickShoppingCartItem from './quickShoppingCartItem/quickShoppingCartItem';
+import Swing from 'react-reveal/Swing';
 
 const QuickShoppingCart = withRouter((props) => {
   const {user, history} = props;
@@ -26,14 +27,15 @@ const QuickShoppingCart = withRouter((props) => {
     history.push('/dashboard/cart');
   };
 
-  const cartProducts = useSelector(
-    (state) => state.cartState.cartProducts
-  );
+  const cartProducts = useSelector((state) => state.cartState.cartProducts);
 
   const renderCartItems = () => {
     return cartProducts.map((orderedProduct) => {
       return (
-        <QuickShoppingCartItem key={orderedProduct.productId} orderedProduct={orderedProduct} />
+        <QuickShoppingCartItem
+          key={orderedProduct.productId}
+          orderedProduct={orderedProduct}
+        />
       );
     });
   };
@@ -47,8 +49,8 @@ const QuickShoppingCart = withRouter((props) => {
           color: '#fe3f40',
         }}>
         <Row className="m-1 justify-content-center">
-          <Badge bg="secondary" bsPrefix="quick-cart-badge">
-            {cartProducts.length}
+          <Badge forever bg="secondary" bsPrefix="quick-cart-badge">
+            <Swing forever timeout={3000}>{cartProducts.length}</Swing>
           </Badge>
         </Row>
         <Row className="m-1">
@@ -63,7 +65,7 @@ const QuickShoppingCart = withRouter((props) => {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Quick Shopping Cart</Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body className='p-4'>
+        <Offcanvas.Body className="p-4">
           <Container className="h-100 p-0 pb-4">
             {renderCartItems()}
             <Row
