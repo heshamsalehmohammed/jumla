@@ -24,6 +24,7 @@ import {
   wishlist_RemoveProduct,
 } from '../../../../redux/actionCreators/cartActionCreators';
 import ProductsCategoriesSelection from './ProductsCategoriesSelection/ProductsCategoriesSelection';
+import {useMediaQuery} from 'react-responsive';
 
 const Products = withRouter((props) => {
   const {history} = props;
@@ -45,6 +46,8 @@ const Products = withRouter((props) => {
     (state) => state.cartState.wishlistProducts
   );
 
+  const isMobile = useMediaQuery({query: '(max-width: 575.98px)'});
+
   const onSortChange = (event) => {
     const value = event.value;
 
@@ -60,37 +63,127 @@ const Products = withRouter((props) => {
   };
 
   const renderListItem = (data) => {
+    let inCart =
+      (cartProducts?.findIndex((p) => p.productId === data.id) ?? -1) !== -1;
+    let inWishlist =
+      (wishlistProducts?.findIndex((p) => p.productId === data.id) ?? -1) !==
+      -1;
+
+    const productCardClickHandler = (e) => {
+      if (
+        !e.target.classList.contains('product-card-button') &&
+        !e.target.classList.contains('product-card-button-icon')
+      ) {
+        document.body.classList.add('moving');
+        document.getElementById('moving-overlay').classList.add('show');
+        setTimeout(() => {
+          document.body.classList.remove('moving');
+        }, 800);
+        setTimeout(() => {
+          document.getElementById('moving-overlay').classList.remove('show');
+          history.push(`/dashboard/productdetails/${data.id}`);
+        }, 1200);
+      }
+    };
+
     return (
-      <div className="p-col-12">
-        <div className="product-list-item">
-          <img
-            src={data.mainImage}
-            onError={(e) =>
-              (e.target.src =
-                'https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png')
-            }
-            alt={data.name}
-          />
-          <div className="product-list-detail">
-            <div className="product-name">{data.name}</div>
-            <div className="product-description">{data.description}</div>
-            <Rating value={data.rating} readOnly cancel={false}></Rating>
-            <i className="pi pi-tag product-category-icon"></i>
-            <span className="product-category">{data.categoryName}</span>
-          </div>
-          <div className="product-list-action">
-            <span className="product-price">${data.price}</span>
-            <Button
-              icon="pi pi-shopping-cart"
-              label="Add to Cart"
-              disabled={data.inventoryStatus === 'OUTOFSTOCK'}></Button>
-            <span
-              className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>
-              {data.inventoryStatus}
-            </span>
-          </div>
-        </div>
-      </div>
+      <Col lg={9} md={10} xs={12} className=" p-2 mb-1">
+        <Row>
+          <Col xs={3}>
+            <img
+              className="product-list-item-img"
+              src={data.mainImage}
+              alt={data.name}
+            />
+          </Col>
+          <Col
+            xs={5}
+            className="p-3 d-flex flex-column justify-content-between">
+            <div className="">
+              <span
+                className={`product-badge status-${data.inventoryStatus.toLowerCase()}`}>
+                {data.inventoryStatus}
+              </span>
+            </div>
+            <div className=" p-2">
+              <div className=" text-right">{data.name}</div>
+              <div className=" text-right">{data.description}</div>
+            </div>
+            <div className=" text-center p-2">
+              {data.oldPrice && (
+                <span
+                  className="p-1"
+                  style={{textDecoration: 'line-through', color: 'red'}}>
+                  {data.oldPrice + data.priceCurrency}
+                </span>
+              )}
+              <span style={{color: 'blue'}} className="p-1">
+                {data.price + data.priceCurrency}
+              </span>
+            </div>
+          </Col>
+          <Col
+            xs={4}
+            className=" d-flex justify-content-center flex-column p-2">
+            <OverlayTrigger
+              placement={'top'}
+              overlay={
+                <Tooltip>
+                  <strong>{inCart ? 'Added to cart' : 'Add to cart'}</strong>
+                </Tooltip>
+              }>
+              <Button
+                className="product-card-button m-1 p-1"
+                variant="light"
+                disabled={data.inventoryStatus === 'OUTOFSTOCK'}
+                onClick={() => toggleAddingProductToCartHandler(data, inCart)}>
+                {!inCart && (
+                  <>
+                    <i className="product-card-button-icon fa fa-cart-plus m-1"></i>
+                    Add to cart
+                  </>
+                )}
+                {inCart && (
+                  <>
+                    <i className="product-card-button-icon fa fa-cart-arrow-down fa-active m-1"></i>
+                    Added to cart
+                  </>
+                )}
+              </Button>
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement={'top'}
+              overlay={
+                <Tooltip>
+                  <strong>
+                    {inWishlist ? 'Added to wishlist' : 'Add to wishlist'}
+                  </strong>
+                </Tooltip>
+              }>
+              <Button
+                label=""
+                className="product-card-button m-1 p-1"
+                variant="light"
+                onClick={() =>
+                  toggleAddingProductToWishlistHandler(data, inWishlist)
+                }>
+                {!inWishlist && (
+                  <>
+                    <i className="product-card-button-icon fa fa-heart m-1"></i>
+                    Add to wishlist
+                  </>
+                )}
+                {inWishlist && (
+                  <>
+                    <i className="product-card-button-icon fa fa-heart fa-active m-1"></i>
+                    Added to wishlist
+                  </>
+                )}
+              </Button>
+            </OverlayTrigger>
+          </Col>
+        </Row>
+      </Col>
     );
   };
 
@@ -238,8 +331,8 @@ const Products = withRouter((props) => {
       return;
     }
 
-    if (layout === 'list') return renderListItem(product);
-    else if (layout === 'grid') return renderGridItem(product);
+    if (layout === 'grid' || isMobile) return renderGridItem(product);
+    else if (layout === 'list') return renderListItem(product);
   };
 
   const renderHeader = () => {
@@ -255,10 +348,12 @@ const Products = withRouter((props) => {
           />
         </Col>
         <Col xs={6} className="d-flex justify-content-end">
-          {/*           <DataViewLayoutOptions
-            layout={layout}
-            onChange={(e) => setLayout(e.value)}
-          /> */}
+          {!isMobile && (
+            <DataViewLayoutOptions
+              layout={layout}
+              onChange={(e) => setLayout(e.value)}
+            />
+          )}
         </Col>
       </Row>
     );

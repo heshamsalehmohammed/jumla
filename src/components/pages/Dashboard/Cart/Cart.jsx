@@ -11,7 +11,10 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import {cart_RemoveProduct} from '../../../../redux/actionCreators/cartActionCreators';
+import {
+  cart_RemoveProduct,
+  cart_EmptyCart,
+} from '../../../../redux/actionCreators/cartActionCreators';
 import {getSubtotalPrice} from '../../../../services/cartService';
 import ProductValueDecreaseIncreaseButton from './../../../common/productValueDecreaseIncreaseButton/productValueDecreaseIncreaseButton';
 
@@ -24,7 +27,9 @@ const Cart = (props) => {
 
   const dispatch = useDispatch();
 
-  const removeAllHandler = () => {};
+  const removeAllHandler = () => {
+    dispatch(cart_EmptyCart());
+  };
 
   const header = (
     <div className="table-header-container">
@@ -49,7 +54,6 @@ const Cart = (props) => {
       <Link to={`/dashboard/productdetails/${rowData.id}`}>{rowData.name}</Link>
     );
   };
-
 
   const priceBodyTemplate = (rowData) => {
     return rowData.price + rowData.priceCurrency;
@@ -144,35 +148,39 @@ const Cart = (props) => {
         xs={10}
         md={4}
         className=" d-flex justify-content-center flex-column">
-        <h3 className="text-center">Cart Totals</h3>
-        <Table
-          className="cart-summury-table"
-          striped
-          bordered
-          hover
-          variant="light">
-          <tbody>
-            <tr>
-              <td>Subtotal</td>
-              <td>{subtotalPrice}</td>
-            </tr>
-            <tr>
-              <td>Tax</td>
-              <td>{tax}</td>
-            </tr>
-            <tr>
-              <td>Discount</td>
-              <td>{discount}</td>
-            </tr>
-            <tr>
-              <td>Total</td>
-              <td>{totalPrice}</td>
-            </tr>
-          </tbody>
-        </Table>
-        <Button as={Link} to="/dashboard/checkout">
-          Proceed To Checkout
-        </Button>
+        {cartProducts.length > 0 && (
+          <>
+            <h3 className="text-center">Cart Totals</h3>
+            <Table
+              className="cart-summury-table"
+              striped
+              bordered
+              hover
+              variant="light">
+              <tbody>
+                <tr>
+                  <td>Subtotal</td>
+                  <td>{subtotalPrice}</td>
+                </tr>
+                <tr>
+                  <td>Tax</td>
+                  <td>{tax}</td>
+                </tr>
+                <tr>
+                  <td>Discount</td>
+                  <td>{discount}</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td>{totalPrice}</td>
+                </tr>
+              </tbody>
+            </Table>
+            <Button as={Link} to="/dashboard/checkout">
+              Proceed To Checkout
+            </Button>
+          </>
+        )}
       </Col>
     </Row>
   );
