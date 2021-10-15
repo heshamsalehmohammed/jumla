@@ -13,7 +13,7 @@ const AddProduct = withRouter((props) => {
 
   return (
     <Row className="justify-content-center p-2">
-      <Col lg={8} md={9} xs={12} className="">
+      <Col md={9} xs={12} className="">
         <AddProductAccordionForm />
       </Col>
     </Row>

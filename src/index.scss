@@ -41,3 +41,14 @@ code {
 #moving-overlay.show {
   visibility: visible;
 }
+
+
+.btn-primary {
+  color: rgb(0, 0, 0) !important;
+  background-color: #1CC5DC !important;
+  border-color: #1CC5DC !important;
+}
+
+.btn-primary:hover{
+  background-color: #279eae !important;
+}
