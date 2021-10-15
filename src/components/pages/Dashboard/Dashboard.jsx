@@ -33,7 +33,7 @@ export default withRouter(
       return (
         <div
           className="min-vh-100 container-fluid p-0 m-0 d-flex flex-column"
-          style={{background: '#fff'}}>
+          style={{background: '#f0f2f5'}}>
           <div className="container-fluid p-0 m-0">
             <div className="page-wrapper chiller-theme ">
               <MainNav />

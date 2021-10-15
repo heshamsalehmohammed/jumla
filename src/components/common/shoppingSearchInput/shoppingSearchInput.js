@@ -13,8 +13,8 @@ const ShoppingSearchInput = () => {
         id="basic-addon1"
         className="shopping-search-icon"
         style={{
-          right: i18n.language === 'ar' ? '0px' : 'unset',
-          left: i18n.language === 'ar' ? 'unset' : '0px',
+          right: i18n.language === 'ar' ? '5px' : 'unset',
+          left: i18n.language === 'ar' ? 'unset' : '5px',
         }}>
         <i className="fa fa-search"></i>
       </InputGroup.Text>
@@ -22,8 +22,10 @@ const ShoppingSearchInput = () => {
         className="shopping-search-input"
         placeholder="انت بتدور علي ايه ؟"
         style={{
+          padding: '11px',
           paddingRight: i18n.language === 'ar' ? '50px' : '0px',
           paddingLeft: i18n.language === 'ar' ? '0px' : '50px',
+          borderRadius: '11px',
         }}
       />
     </InputGroup>
