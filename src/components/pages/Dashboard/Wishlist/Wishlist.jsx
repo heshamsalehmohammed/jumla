@@ -12,7 +12,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {
   wishlist_RemoveProduct,
-  wislist_EmptyWishlist,
+  wishlist_EmptyWishlist,
 } from '../../../../redux/actionCreators/cartActionCreators';
 
 const Wishlist = (props) => {
@@ -25,7 +25,7 @@ const Wishlist = (props) => {
   const dispatch = useDispatch();
 
   const removeAllHandler = () => {
-    dispatch(wislist_EmptyWishlist());
+    dispatch(wishlist_EmptyWishlist());
   };
 
   const header = (

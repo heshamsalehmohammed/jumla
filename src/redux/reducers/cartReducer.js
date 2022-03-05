@@ -5,7 +5,9 @@ const cartReducer = (state = initialState.cartState, action) => {
   switch (action.type) {
     case actionsTypes.INCREASE_CART_PRODUCT_COUNT: {
       let product = state.cartProducts.find(
-        (op) => op.productId === action.payload.productId
+        (op) =>
+          op.productId === action.payload.productId &&
+          op.stockDetailId === action.payload.stockDetailId
       );
       if (product) {
         return {
@@ -13,7 +15,8 @@ const cartReducer = (state = initialState.cartState, action) => {
           cartProducts: state.cartProducts.map((op) => ({
             ...op,
             count:
-              op.productId === action.payload.productId
+              op.productId === action.payload.productId &&
+              op.stockDetailId === action.payload.stockDetailId
                 ? op.count + action.payload.increasingAmount
                 : op.count,
           })),
@@ -25,6 +28,7 @@ const cartReducer = (state = initialState.cartState, action) => {
           ...state.cartProducts,
           {
             productId: action.payload.productId,
+            stockDetailId: action.payload.stockDetailId,
             count: action.payload.increasingAmount,
           },
         ],
@@ -32,7 +36,9 @@ const cartReducer = (state = initialState.cartState, action) => {
     }
     case actionsTypes.DECREASE_CART_PRODUCT_COUNT: {
       let product = state.cartProducts.find(
-        (op) => op.productId === action.payload.productId
+        (op) =>
+          op.productId === action.payload.productId &&
+          op.stockDetailId === action.payload.stockDetailId
       );
 
       if ((product?.count ?? 0) - action.payload.decreasingAmount <= 0) {
@@ -41,7 +47,8 @@ const cartReducer = (state = initialState.cartState, action) => {
           cartProducts: [
             ...cartProductsWithoutProduct(
               state.cartProducts,
-              action.payload.productId
+              action.payload.productId,
+              action.payload.stockDetailId
             ),
           ],
         };
@@ -51,7 +58,8 @@ const cartReducer = (state = initialState.cartState, action) => {
         cartProducts: state.cartProducts.map((op) => ({
           ...op,
           count:
-            op.productId === action.payload.productId
+            op.productId === action.payload.productId &&
+            op.stockDetailId === action.payload.stockDetailId
               ? op.count - action.payload.decreasingAmount
               : op.count,
         })),
@@ -64,7 +72,8 @@ const cartReducer = (state = initialState.cartState, action) => {
           cartProducts: [
             ...cartProductsWithoutProduct(
               state.cartProducts,
-              action.payload.productId
+              action.payload.productId,
+              action.payload.stockDetailId
             ),
           ],
         };
@@ -74,7 +83,8 @@ const cartReducer = (state = initialState.cartState, action) => {
         cartProducts: state.cartProducts.map((op) => ({
           ...op,
           count:
-            op.productId === action.payload.productId
+            op.productId === action.payload.productId &&
+            op.stockDetailId === action.payload.stockDetailId
               ? action.payload.count
               : op.count,
         })),
@@ -86,7 +96,8 @@ const cartReducer = (state = initialState.cartState, action) => {
         cartProducts: [
           ...cartProductsWithoutProduct(
             state.cartProducts,
-            action.payload.productId
+            action.payload.productId,
+            action.payload.stockDetailId
           ),
         ],
       };
@@ -120,6 +131,7 @@ const cartReducer = (state = initialState.cartState, action) => {
           ...state.cartProducts,
           {
             productId: action.payload.productId,
+            stockDetailId: action.payload.stockDetailId,
             count: action.payload.count,
           },
         ],
@@ -162,12 +174,14 @@ const cartReducer = (state = initialState.cartState, action) => {
   }
 };
 
-const cartProductsWithoutProduct = (cartProducts, productId) => {
-  return cartProducts.filter((op) => productId !== op.productId);
+const cartProductsWithoutProduct = (cartProducts, productId, stockDetailId) => {
+  return cartProducts.filter(
+    (op) => !(productId === op.productId && stockDetailId === op.stockDetailId)
+  );
 };
 
-const wishlistProductsWithoutProduct = (wislistProducts, productId) => {
-  return wislistProducts.filter((op) => productId !== op.productId);
+const wishlistProductsWithoutProduct = (wishlistProducts, productId) => {
+  return wishlistProducts.filter((op) => productId !== op.productId);
 };
 
 export default cartReducer;

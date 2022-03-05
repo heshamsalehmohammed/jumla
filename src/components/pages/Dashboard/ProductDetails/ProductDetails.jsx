@@ -2,7 +2,7 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.css';
 import './ProductDetails.scss';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -20,6 +20,7 @@ import {
   wishlist_AddProduct,
   wishlist_RemoveProduct,
 } from '../../../../redux/actionCreators/cartActionCreators';
+import FancyRadio from '../../../common/fancyRadio/fancyRadio';
 
 const ProductDetails = withRouter((props) => {
   let {
@@ -36,12 +37,35 @@ const ProductDetails = withRouter((props) => {
     state.productsState.products.filter((p) => p.id === productId)
   )[0];
 
+  const productColors = [
+    ...new Set(
+      productDetails?.stock?.stockDetails?.map((sd) => sd.color) ?? []
+    ),
+  ];
+  const productSizes = [
+    ...new Set(productDetails?.stock?.stockDetails?.map((sd) => sd.size) ?? []),
+  ];
   const [mainImage, setMainImage] = useState(productDetails.mainImage);
+
+  const [stockDetailId, setStockDetailId] = useState(0);
+  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedSize, setSelectedSize] = useState('');
+
+  useEffect(() => {
+    if (selectedColor !== '' && selectedSize !== '') {
+      const stockDetailId =
+        productDetails?.stock?.stockDetails.find(
+          (sd) => sd.color === selectedColor && sd.size === selectedSize
+        ).id ?? 0;
+      setStockDetailId(stockDetailId);
+    }
+  }, [selectedColor, selectedSize]);
 
   const orderedProduct = useSelector(
     (state) =>
-      state.cartState.cartProducts.find((cp) => cp.productId === productId) ??
-      null
+      state.cartState.cartProducts.find(
+        (cp) => cp.productId === productId && cp.stockDetailId === stockDetailId
+      ) ?? null
   );
 
   const isInCart = orderedProduct ? true : false;
@@ -57,9 +81,9 @@ const ProductDetails = withRouter((props) => {
 
   const toggleAddingProductToCartHandler = (product, inCart) => {
     if (inCart) {
-      dispatch(cart_RemoveProduct(product.id));
+      dispatch(cart_RemoveProduct(product.id, stockDetailId));
     } else {
-      dispatch(cart_AddProduct(product.id, 1));
+      dispatch(cart_AddProduct(product.id, stockDetailId, 1));
     }
   };
 
@@ -69,6 +93,16 @@ const ProductDetails = withRouter((props) => {
     } else {
       dispatch(wishlist_AddProduct(product.id));
     }
+  };
+
+  const addToCartButtonDisabled = () => {
+    if (productDetails.inventoryStatus === 'OUTOFSTOCK') {
+      return true;
+    }
+    if (productDetails?.stock?.stockDetails.length > 0 && stockDetailId === 0) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -115,10 +149,12 @@ const ProductDetails = withRouter((props) => {
                 {productDetails.categoryName}
               </span>
             </div>
-            <div className="product-details-content-sub-section" style={{
-                  paddingLeft: '0.5rem',
-                  paddingRight: '0.5rem'
-            }}>
+            <div
+              className="product-details-content-sub-section"
+              style={{
+                paddingLeft: '0.5rem',
+                paddingRight: '0.5rem',
+              }}>
               <div className="product-details-product-name p-2">
                 {productDetails.name}
               </div>
@@ -130,38 +166,8 @@ const ProductDetails = withRouter((props) => {
               </span>
             </div>
           </div>
-          <div className="product-actions-content-section p-2 d-flex justify-content-between">
+          <div className="product-actions-content-section p-2 d-flex justify-content-center">
             <div className="d-flex">
-              <OverlayTrigger
-                placement={'top'}
-                overlay={
-                  <Tooltip>
-                    <strong>
-                      {isInCart ? 'Added to cart' : 'Add to cart'}
-                    </strong>
-                  </Tooltip>
-                }>
-                <Button
-                  className="product-details-button m-1 p-1"
-                  variant="light"
-                  disabled={productDetails.inventoryStatus === 'OUTOFSTOCK'}
-                  onClick={() =>
-                    toggleAddingProductToCartHandler(productDetails, isInCart)
-                  }>
-                  {!isInCart && (
-                    <>
-                      <i className="product-details-button-icon fa fa-cart-plus m-1"></i>{' '}
-                      Add to cart
-                    </>
-                  )}
-                  {isInCart && (
-                    <>
-                      <i className="product-details-button-icon fa fa-cart-arrow-down fa-active m-1"></i>{' '}
-                      Added to cart
-                    </>
-                  )}
-                </Button>
-              </OverlayTrigger>
               <OverlayTrigger
                 placement={'top'}
                 overlay={
@@ -196,15 +202,70 @@ const ProductDetails = withRouter((props) => {
                 </Button>
               </OverlayTrigger>
             </div>
-            <ProductValueDecreaseIncreaseButton
-              productId={productDetails.id}
-              productCount={orderedProduct?.count ?? 0}
-              classNames="p-2"
-              styles={{
-                display: 'inline-flex',
-                width: 'unset',
-              }}
-            />
+          </div>
+        </div>
+        <div className="product-details-content-wrapper mt-2 d-flex flex-column justify-content-between">
+          {productDetails?.stock?.stockDetails.length > 0 && (
+            <>
+              <FancyRadio
+                optionsList={productColors}
+                selectedOption={selectedColor}
+                setSelectedOption={setSelectedColor}
+                prefix="product-color"
+              />
+              <FancyRadio
+                optionsList={productSizes}
+                selectedOption={selectedSize}
+                setSelectedOption={setSelectedSize}
+                prefix="product-size"
+              />
+            </>
+          )}
+          <div className="product-actions-content-section p-2 d-flex justify-content-between">
+            <div className="d-flex">
+              <OverlayTrigger
+                placement={'top'}
+                overlay={
+                  <Tooltip>
+                    <strong>
+                      {isInCart ? 'Added to cart' : 'Add to cart'}
+                    </strong>
+                  </Tooltip>
+                }>
+                <Button
+                  className="product-details-button m-1 p-2"
+                  variant="light"
+                  disabled={addToCartButtonDisabled()}
+                  onClick={() =>
+                    toggleAddingProductToCartHandler(productDetails, isInCart)
+                  }>
+                  {!isInCart && (
+                    <>
+                      <i className="product-details-button-icon fa fa-cart-plus m-1"></i>{' '}
+                      Add to cart
+                    </>
+                  )}
+                  {isInCart && (
+                    <>
+                      <i className="product-details-button-icon fa fa-cart-arrow-down fa-active m-1"></i>{' '}
+                      Added to cart
+                    </>
+                  )}
+                </Button>
+              </OverlayTrigger>
+            </div>
+            {!addToCartButtonDisabled() && (
+              <ProductValueDecreaseIncreaseButton
+                productId={productDetails.id}
+                stockDetailId={stockDetailId}
+                productCount={orderedProduct?.count ?? 0}
+                classNames="p-2"
+                styles={{
+                  display: 'inline-flex',
+                  width: 'unset',
+                }}
+              />
+            )}
           </div>
         </div>
       </Col>

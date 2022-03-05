@@ -1,10 +1,10 @@
 const initialState = {
   cartState: {
     cartProducts: [
-      {productId: 1, count: 1},
-      {productId: 2, count: 4},
-      {productId: 5, count: 3},
-      {productId: 4, count: 1},
+      {productId: 1, stockDetailId: 1, count: 1},
+      {productId: 2, stockDetailId: 1, count: 4},
+      {productId: 5, stockDetailId: 1, count: 3},
+      {productId: 4, stockDetailId: 1, count: 1},
     ],
     wishlistProducts: [{productId: 5}, {productId: 4}],
   },
@@ -14,7 +14,6 @@ const initialState = {
         id: 1,
         name: 'p1',
         description: 'p1',
-        totalNumAvailableInStock: 12,
         specifications: [
           {
             name: 'weight',
@@ -30,8 +29,13 @@ const initialState = {
           'https://source.unsplash.com/1600x900/?product',
           'https://source.unsplash.com/1600x900/?product',
         ],
-        hasSizes: true,
-        sizes: [{name: 'XL', numAvailableInStock: 5}],
+        stock: {
+          stockDetails: [
+            {id: 1, size: 'XL', color: 'red', numAvailableInStock: 6},
+            {id: 2, size: 'L', color: 'red', numAvailableInStock: 6},
+          ],
+          totalNumAvailableInStock: 12,
+        },
         createdDate: 4567,
         lastUpdatedDate: 3567,
         createdBy: {
@@ -45,9 +49,8 @@ const initialState = {
       },
       {
         id: 2,
-        name: 'p1',
-        description: 'p1',
-        totalNumAvailableInStock: 12,
+        name: 'p2',
+        description: 'p2',
         specifications: [
           {
             name: 'weight',
@@ -63,8 +66,10 @@ const initialState = {
           'https://source.unsplash.com/1600x900/?product',
           'https://source.unsplash.com/1600x900/?product',
         ],
-        hasSizes: true,
-        sizes: [{name: 'XL', numAvailableInStock: 5}],
+        stock: {
+          stockDetails: [],
+          totalNumAvailableInStock: 12,
+        },
         createdDate: 4567,
         lastUpdatedDate: 3567,
         createdBy: {
@@ -78,9 +83,8 @@ const initialState = {
       },
       {
         id: 3,
-        name: 'p1',
-        description: 'p1',
-        totalNumAvailableInStock: 12,
+        name: 'p3',
+        description: 'p3',
         specifications: [
           {
             name: 'weight',
@@ -96,8 +100,13 @@ const initialState = {
           'https://source.unsplash.com/1600x900/?product',
           'https://source.unsplash.com/1600x900/?product',
         ],
-        hasSizes: true,
-        sizes: [{name: 'XL', numAvailableInStock: 5}],
+        stock: {
+          stockDetails: [
+            {id: 1, size: 'XL', color: 'red', numAvailableInStock: 6},
+            {id: 2, size: 'L', color: 'red', numAvailableInStock: 6},
+          ],
+          totalNumAvailableInStock: 12,
+        },
         createdDate: 4567,
         lastUpdatedDate: 3567,
         createdBy: {
@@ -111,9 +120,8 @@ const initialState = {
       },
       {
         id: 4,
-        name: 'p1',
-        description: 'p1',
-        totalNumAvailableInStock: 12,
+        name: 'p4',
+        description: 'p4',
         specifications: [
           {
             name: 'weight',
@@ -128,8 +136,13 @@ const initialState = {
           'https://source.unsplash.com/1600x900/?product',
           'https://source.unsplash.com/1600x900/?product',
         ],
-        hasSizes: true,
-        sizes: [{name: 'XL', numAvailableInStock: 5}],
+        stock: {
+          stockDetails: [
+            {id: 1, size: 'XL', color: 'red', numAvailableInStock: 6},
+            {id: 2, size: 'L', color: 'red', numAvailableInStock: 6},
+          ],
+          totalNumAvailableInStock: 12,
+        },
         createdDate: 4567,
         lastUpdatedDate: 3567,
         createdBy: {
@@ -143,9 +156,8 @@ const initialState = {
       },
       {
         id: 5,
-        name: 'p1',
-        description: 'p1',
-        totalNumAvailableInStock: 12,
+        name: 'p5',
+        description: 'p5',
         specifications: [
           {
             name: 'weight',
@@ -161,7 +173,13 @@ const initialState = {
           'https://source.unsplash.com/1600x900/?product',
         ],
         hasSizes: true,
-        sizes: [{name: 'XL', numAvailableInStock: 5}],
+        stock: {
+          stockDetails: [
+            {id: 1, size: 'XL', color: 'red', numAvailableInStock: 6},
+            {id: 2, size: 'L', color: 'red', numAvailableInStock: 6},
+          ],
+          totalNumAvailableInStock: 12,
+        },
         createdDate: 4567,
         lastUpdatedDate: 3567,
         createdBy: {

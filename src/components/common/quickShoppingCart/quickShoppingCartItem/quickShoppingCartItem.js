@@ -21,7 +21,9 @@ const QuickShoppingCartItemgCartItem = (props) => {
   );
 
   const trashClickHandler = () => {
-    dispatch(cart_RemoveProduct(orderedProduct.productId));
+    dispatch(
+      cart_RemoveProduct(orderedProduct.productId, orderedProduct.stockDetailId)
+    );
   };
 
   return (
@@ -46,6 +48,7 @@ const QuickShoppingCartItemgCartItem = (props) => {
         </Link>
         <ProductValueDecreaseIncreaseButton
           productId={product.id}
+          stockDetailId={orderedProduct.stockDetailId}
           productCount={orderedProduct.count}
         />
       </Col>

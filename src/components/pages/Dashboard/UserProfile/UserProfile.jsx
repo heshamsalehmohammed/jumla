@@ -10,6 +10,7 @@ import EditUserProfileForm from './EditUserProfileForm/EditUserProfileForm';
 import {Divider} from 'primereact/divider';
 
 const UserProfile = (props) => {
+  const user = auth.getCurrentUser();debugger
   return (
     <Row className="justify-content-center">
       <Col xs={12} sm={8} md={4} lg={3}>
@@ -18,7 +19,7 @@ const UserProfile = (props) => {
             <img className="profile-card-image" src={DPP} alt="profile" />
           </div>
           <div className="profile-card-details text-center">
-            <span className="user-name">{'hesham saleh'}</span>
+            <span className="user-name">{user.name}</span>
             <span className="user-role">Admin</span>
             <span className="user-status">
               <i className="p-1 fa fa-circle"></i> <span>Online</span>

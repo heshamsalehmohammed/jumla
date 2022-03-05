@@ -87,8 +87,8 @@ const Products = withRouter((props) => {
     };
 
     return (
-      <Col lg={9} md={10} xs={12} className=" p-2 mb-1" >
-        <Row onClick={productCardClickHandler}  className="product-list-item">
+      <Col lg={9} md={10} xs={12} className=" p-2 mb-1">
+        <Row onClick={productCardClickHandler} className="product-list-item">
           <Col xs={3}>
             <img
               className="product-list-item-img"
@@ -125,7 +125,7 @@ const Products = withRouter((props) => {
           <Col
             xs={4}
             className=" d-flex justify-content-center flex-column p-2">
-            <OverlayTrigger
+{/*             <OverlayTrigger
               placement={'top'}
               overlay={
                 <Tooltip>
@@ -150,7 +150,7 @@ const Products = withRouter((props) => {
                   </>
                 )}
               </Button>
-            </OverlayTrigger>
+            </OverlayTrigger> */}
             <OverlayTrigger
               placement={'top'}
               overlay={
@@ -264,7 +264,7 @@ const Products = withRouter((props) => {
                 </span>
               </div>
               <div className=" d-flex justify-content-center p-2">
-                <OverlayTrigger
+                {/*                 <OverlayTrigger
                   placement={'top'}
                   overlay={
                     <Tooltip>
@@ -293,7 +293,7 @@ const Products = withRouter((props) => {
                       </>
                     )}
                   </Button>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
                 <OverlayTrigger
                   placement={'top'}
                   overlay={
@@ -311,10 +311,16 @@ const Products = withRouter((props) => {
                       toggleAddingProductToWishlistHandler(data, inWishlist)
                     }>
                     {!inWishlist && (
-                      <i className="product-card-button-icon fa fa-heart m-1"></i>
+                      <>
+                        <i className="product-card-button-icon fa fa-heart m-1"></i>{' '}
+                        Add To Wishlist
+                      </>
                     )}
                     {inWishlist && (
-                      <i className="product-card-button-icon fa fa-heart fa-active m-1"></i>
+                      <>
+                        <i className="product-card-button-icon fa fa-heart fa-active m-1"></i>
+                        Added To WishList
+                      </>
                     )}
                   </Button>
                 </OverlayTrigger>

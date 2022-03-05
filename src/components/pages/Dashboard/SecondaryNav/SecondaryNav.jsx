@@ -42,7 +42,7 @@ export default class SecondaryNav extends Component {
                   umla
                 </strong>
               </span>
-              <p
+              <p   
                 style={{
                   color: '#fe3f40',
                   textShadow: '0 0 0.15em #fe3f40',

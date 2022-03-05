@@ -21,22 +21,25 @@ class AddProductAccordionForm extends Form {
 
     this.updateSpecNameHandler = this.updateSpecNameHandler.bind(this);
     this.updateSpecValueHandler = this.updateSpecValueHandler.bind(this);
-    this.updateSizeNameHandler = this.updateSizeNameHandler.bind(this);
-    this.updateSizeNumStockHandler = this.updateSizeNumStockHandler.bind(this);
+    this.updateStockDetailSizeHandler =
+      this.updateStockDetailSizeHandler.bind(this);
+    this.updateStockDetailNumStockHandler =
+      this.updateStockDetailNumStockHandler.bind(this);
   }
 
   state = {
     data: {
       name: '',
       description: '',
-      totalNumAvailableInStock: 0,
       specifications: [],
       price: 0,
       priceCurrency: 'EGP',
       mainImage: [],
       subImages: [],
-      hasSizes: false,
-      sizes: [],
+      stock: {
+        stockDetails: [],
+        totalNumAvailableInStock: 0,
+      },
       inventoryStatus: '',
       categoryId: 0,
     },
@@ -46,12 +49,8 @@ class AddProductAccordionForm extends Form {
   schema = {
     name: Joi.string().required().label('Product Name'),
     description: Joi.string().required().label('Product Description'),
-    totalNumAvailableInStock: Joi.number()
-      .required()
-      .label('Available In Stock'),
     specifications: Joi.array().items(
       Joi.object().keys({
-        id: Joi.string().required(),
         name: Joi.string().required(),
         value: Joi.string().required(),
       })
@@ -61,13 +60,18 @@ class AddProductAccordionForm extends Form {
     mainImage: Joi.array().length(1).required(),
     subImages: Joi.array(),
     hasSizes: Joi.boolean().required(),
-    sizes: Joi.array().items(
-      Joi.object().keys({
-        id: Joi.string().required(),
-        name: Joi.string().required(),
-        numAvailableInStock: Joi.number().greater(0).required(),
-      })
-    ),
+    stock: Joi.object().keys({
+      stockDetails: Joi.array().items(
+        Joi.object().keys({
+          size: Joi.string().required().label('Product size'),
+          color: Joi.string().required().label('Product color'),
+          numAvailableInStock: Joi.number().greater(0).required(),
+        })
+      ),
+      totalNumAvailableInStock: Joi.number()
+        .required()
+        .label('Available In Stock'),
+    }),
     inventoryStatus: Joi.string().required().label('Product Inventory Status'),
     categoryId: Joi.number().required().label('Product Category'),
   };
@@ -168,12 +172,17 @@ class AddProductAccordionForm extends Form {
     });
   };
 
-  addNewSizeHandler = () => {
+  addNewStockDetailHandler = () => {
     const uniqueId = uuidv4();
     this.schema = {
       ...this.schema,
-      [`sizes.name_$$$_${uniqueId}`]: Joi.string().required().label('Name'),
-      [`sizes.value_$$$_${uniqueId}`]: Joi.number()
+      [`stockdetails.size_$$$_${uniqueId}`]: Joi.string()
+        .required()
+        .label('size'),
+      [`stockdetails.color_$$$_${uniqueId}`]: Joi.string()
+        .required()
+        .label('color'),
+      [`stockdetails.numAvailableInStock_$$$_${uniqueId}`]: Joi.number()
         .greater(0)
         .required()
         .label('Number Available'),
@@ -182,26 +191,29 @@ class AddProductAccordionForm extends Form {
       ...this.state,
       data: {
         ...this.state.data,
-        sizes: [
-          ...this.state.data.sizes,
-          {id: uniqueId, name: '', numAvailableInStock: 0},
-        ],
-        hasSizes: true,
+        stock: {
+          ...this.state.data.stock,
+          stockDetails: [
+            ...this.state.data.stock.stockDetails,
+            {id: uniqueId, size: '', color: '', numAvailableInStock: 0},
+          ],
+        },
       },
     });
   };
 
-  removeSizeHandler = (uniqueId) => {
+  removeStockDetailHandler = (uniqueId) => {
     const newSchema = {
       ...this.schema,
     };
 
-    delete newSchema[`sizes.name_$$$_${uniqueId}`];
-    delete newSchema[`sizes.numAvailableInStock_$$$_${uniqueId}`];
+    delete newSchema[`stockdetails.size_$$$_${uniqueId}`];
+    delete newSchema[`stockdetails.color_$$$_${uniqueId}`];
+    delete newSchema[`stockdetails.numAvailableInStock_$$$_${uniqueId}`];
 
     this.schema = newSchema;
 
-    const newSizes = [...this.state.data.sizes].filter(
+    const newStockDetails = [...this.state.data.stock.stockDetails].filter(
       (spec) => spec.id !== uniqueId
     );
 
@@ -209,8 +221,10 @@ class AddProductAccordionForm extends Form {
       ...this.state,
       data: {
         ...this.state.data,
-        sizes: newSizes,
-        hasSizes: newSizes.length > 0,
+        stock: {
+          ...this.state.data.stock,
+          stockDetails: newStockDetails,
+        },
       },
     });
   };
@@ -253,39 +267,71 @@ class AddProductAccordionForm extends Form {
       },
     });
   };
-  updateSizeNameHandler = (name, newValue) => {
+  updateStockDetailSizeHandler = (name, newValue) => {
     this.setState({
       ...this.state,
       data: {
         ...this.state.data,
-        sizes: [
-          ...this.state.data.sizes.map((_size) => {
-            return {
-              ..._size,
-              name:
-                _size.id === this.getIdFromName(name) ? newValue : _size.name,
-            };
-          }),
-        ],
+        stock: {
+          ...this.state.data.stock,
+          stockDetails: [
+            ...this.state.data.stock.stockDetails.map((stockDetail) => {
+              return {
+                ...stockDetail,
+                size:
+                  stockDetail.id === this.getIdFromName(name)
+                    ? newValue
+                    : stockDetail.size,
+              };
+            }),
+          ],
+        },
       },
     });
   };
-  updateSizeNumStockHandler = (name, newValue) => {
+
+  updateStockDetailColorHandler = (name, newValue) => {
     this.setState({
       ...this.state,
       data: {
         ...this.state.data,
-        sizes: [
-          ...this.state.data.sizes.map((_size) => {
-            return {
-              ..._size,
-              numAvailableInStock:
-                _size.id === this.getIdFromName(name)
-                  ? newValue
-                  : _size.numAvailableInStock,
-            };
-          }),
-        ],
+        stock: {
+          ...this.state.data.stock,
+          stockDetails: [
+            ...this.state.data.stock.stockDetails.map((stockDetail) => {
+              return {
+                ...stockDetail,
+                color:
+                  stockDetail.id === this.getIdFromName(name)
+                    ? newValue
+                    : stockDetail.color,
+              };
+            }),
+          ],
+        },
+      },
+    });
+  };
+
+  updateStockDetailNumStockHandler = (name, newValue) => {
+    this.setState({
+      ...this.state,
+      data: {
+        ...this.state.data,
+        stock: {
+          ...this.state.data.stock,
+          stockDetails: [
+            ...this.state.data.stock.stockDetails.map((stockDetail) => {
+              return {
+                ...stockDetail,
+                numAvailableInStock:
+                  stockDetail.id === this.getIdFromName(name)
+                    ? newValue
+                    : stockDetail.numAvailableInStock,
+              };
+            }),
+          ],
+        },
       },
     });
   };
@@ -464,8 +510,8 @@ class AddProductAccordionForm extends Form {
               </Button>
             </div>
           </AccordionTab>
-          <AccordionTab header="Product Sizes">
-            {this.state.data.sizes.map((size, index) => {
+          <AccordionTab header="Stock Details">
+            {this.state.data.stock.stockDetails.map((sd, index) => {
               return (
                 <div
                   key={index}
@@ -475,8 +521,8 @@ class AddProductAccordionForm extends Form {
                     borderRadius: '5px',
                   }}>
                   {this.renderInput(
-                    `sizes.name_$$$_${size.id}`,
-                    'Name',
+                    `stockdetails.size_$$$_${sd.id}`,
+                    'size',
                     'text',
                     'form-group mb-1 col-md-5 col-sm-12',
                     'form-label',
@@ -484,10 +530,22 @@ class AddProductAccordionForm extends Form {
                     true,
                     {},
                     '',
-                    this.updateSizeNameHandler
+                    this.updateStockDetailSizeHandler
                   )}
                   {this.renderInput(
-                    `sizes.numAvailableInStock_$$$_${size.id}`,
+                    `stockdetails.color_$$$_${sd.id}`,
+                    'color',
+                    'text',
+                    'form-group mb-1 col-md-5 col-sm-12',
+                    'form-label',
+                    'form-control outfit',
+                    true,
+                    {},
+                    '',
+                    this.updateStockDetailColorHandler
+                  )}
+                  {this.renderInput(
+                    `stockdetails.numAvailableInStock_$$$_${sd.id}`,
                     'Number Available In Stock',
                     'number',
                     'form-group mb-1 col-md-5 col-sm-12',
@@ -496,10 +554,10 @@ class AddProductAccordionForm extends Form {
                     true,
                     {},
                     '',
-                    this.updateSizeNumStockHandler
+                    this.updateStockDetailNumStockHandler
                   )}
                   <Button
-                    onClick={() => this.removeSizeHandler(size.id)}
+                    onClick={() => this.removeStockDetailHandler(sd.id)}
                     style={{
                       width: 'auto',
                       height: '-webkit-fill-available',
@@ -516,7 +574,9 @@ class AddProductAccordionForm extends Form {
               );
             })}
             <div className="form-row d-flex p-3 justify-content-center">
-              <Button onClick={this.addNewSizeHandler}>Add New Size</Button>
+              <Button onClick={this.addNewStockDetailHandler}>
+                Add New Stock Detail
+              </Button>
             </div>
           </AccordionTab>
         </Accordion>

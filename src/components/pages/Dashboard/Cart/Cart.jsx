@@ -83,6 +83,7 @@ const Cart = (props) => {
     return (
       <ProductValueDecreaseIncreaseButton
         productId={rowData.id}
+        stockDetailId={orderedProduct.stockDetailId}
         productCount={orderedProduct.count}
       />
     );
