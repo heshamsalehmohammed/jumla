@@ -98,17 +98,15 @@ class Form extends Component {
     hasLabel = true,
     inputStyle = {},
     placeHolder = '',
-    AdditionalHandleChange
+    AdditionalHandleChange,
+    value = null
   ) {
     const inputChange = (e) => {
       this.handleChange(e);
       if (AdditionalHandleChange) {
         const name = e.currentTarget.name;
         const value = e.currentTarget.value;
-
-        setTimeout(() => {
-          AdditionalHandleChange(name, value);
-        }, 500);
+        AdditionalHandleChange(name, value);
       }
     };
 
@@ -118,7 +116,7 @@ class Form extends Component {
       <Input
         type={type}
         name={name}
-        value={data[name]}
+        value={value ? value : data[name]}
         label={label}
         onChange={inputChange}
         error={errors[name]}

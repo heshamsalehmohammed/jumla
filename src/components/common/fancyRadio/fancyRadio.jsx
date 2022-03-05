@@ -18,7 +18,7 @@ const FancyRadio = ({
       {optionsList.map((o, index) => {
         const isChecked = o === selectedOption;
         return (
-          <>
+          <div key={index}>
             <input
               type="radio"
               name="select"
@@ -32,7 +32,7 @@ const FancyRadio = ({
               <div class="dot"></div>
               <span>{o}</span>
             </label>
-          </>
+          </div>
         );
       })}
     </div>

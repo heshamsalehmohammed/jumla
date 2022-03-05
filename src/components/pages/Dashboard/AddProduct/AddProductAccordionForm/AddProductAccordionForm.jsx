@@ -91,7 +91,6 @@ class AddProductAccordionForm extends Form {
         valid: true,
         errors: [],
       });
-      debugger;
       _this.setState({
         ..._this.state,
         data: {
@@ -176,13 +175,13 @@ class AddProductAccordionForm extends Form {
     const uniqueId = uuidv4();
     this.schema = {
       ...this.schema,
-      [`stockdetails.size_$$$_${uniqueId}`]: Joi.string()
+      [`stock.stockDetails.size_$$$_${uniqueId}`]: Joi.string()
         .required()
         .label('size'),
-      [`stockdetails.color_$$$_${uniqueId}`]: Joi.string()
+      [`stock.stockDetails.color_$$$_${uniqueId}`]: Joi.string()
         .required()
         .label('color'),
-      [`stockdetails.numAvailableInStock_$$$_${uniqueId}`]: Joi.number()
+      [`stock.stockDetails.numAvailableInStock_$$$_${uniqueId}`]: Joi.number()
         .greater(0)
         .required()
         .label('Number Available'),
@@ -207,9 +206,9 @@ class AddProductAccordionForm extends Form {
       ...this.schema,
     };
 
-    delete newSchema[`stockdetails.size_$$$_${uniqueId}`];
-    delete newSchema[`stockdetails.color_$$$_${uniqueId}`];
-    delete newSchema[`stockdetails.numAvailableInStock_$$$_${uniqueId}`];
+    delete newSchema[`stock.stockDetails.size_$$$_${uniqueId}`];
+    delete newSchema[`stock.stockDetails.color_$$$_${uniqueId}`];
+    delete newSchema[`stock.stockDetails.numAvailableInStock_$$$_${uniqueId}`];
 
     this.schema = newSchema;
 
@@ -223,7 +222,7 @@ class AddProductAccordionForm extends Form {
         ...this.state.data,
         stock: {
           ...this.state.data.stock,
-          stockDetails: newStockDetails,
+          stockDetails: newStockDetails.map((sd) => ({...sd})),
         },
       },
     });
@@ -473,7 +472,8 @@ class AddProductAccordionForm extends Form {
                     true,
                     {},
                     '',
-                    this.updateSpecNameHandler
+                    this.updateSpecNameHandler,
+                    spec.name
                   )}
                   {this.renderInput(
                     `specifications.value_$$$_${spec.id}`,
@@ -485,7 +485,8 @@ class AddProductAccordionForm extends Form {
                     true,
                     {},
                     '',
-                    this.updateSpecValueHandler
+                    this.updateSpecValueHandler,
+                    spec.value
                   )}
                   <Button
                     onClick={() => this.removeSpecHandler(spec.id)}
@@ -521,7 +522,7 @@ class AddProductAccordionForm extends Form {
                     borderRadius: '5px',
                   }}>
                   {this.renderInput(
-                    `stockdetails.size_$$$_${sd.id}`,
+                    `stock.stockDetails.size_$$$_${sd.id}`,
                     'size',
                     'text',
                     'form-group mb-1 col-md-5 col-sm-12',
@@ -530,10 +531,11 @@ class AddProductAccordionForm extends Form {
                     true,
                     {},
                     '',
-                    this.updateStockDetailSizeHandler
+                    this.updateStockDetailSizeHandler,
+                    sd.size
                   )}
                   {this.renderInput(
-                    `stockdetails.color_$$$_${sd.id}`,
+                    `stock.stockDetails.color_$$$_${sd.id}`,
                     'color',
                     'text',
                     'form-group mb-1 col-md-5 col-sm-12',
@@ -542,10 +544,11 @@ class AddProductAccordionForm extends Form {
                     true,
                     {},
                     '',
-                    this.updateStockDetailColorHandler
+                    this.updateStockDetailColorHandler,
+                    sd.color
                   )}
                   {this.renderInput(
-                    `stockdetails.numAvailableInStock_$$$_${sd.id}`,
+                    `stock.stockDetails.numAvailableInStock_$$$_${sd.id}`,
                     'Number Available In Stock',
                     'number',
                     'form-group mb-1 col-md-5 col-sm-12',
@@ -554,7 +557,8 @@ class AddProductAccordionForm extends Form {
                     true,
                     {},
                     '',
-                    this.updateStockDetailNumStockHandler
+                    this.updateStockDetailNumStockHandler,
+                    sd.numAvailableInStock
                   )}
                   <Button
                     onClick={() => this.removeStockDetailHandler(sd.id)}

@@ -254,10 +254,10 @@ const initialState = {
       {
         id: 1,
         productsDetails: [
-          {productId: 1, count: 1}, // to ref to the whole product object not just the id
-          {productId: 2, count: 4},
-          {productId: 5, count: 3},
-          {productId: 4, count: 1},
+          {productId: 1, stockDetailId: 1, count: 1}, // to ref to the whole product object not just the id
+          {productId: 2, stockDetailId: 1, count: 4},
+          {productId: 5, stockDetailId: 1, count: 3},
+          {productId: 4, stockDetailId: 1, count: 1},
         ],
         priceDetails: {
           subTotal: 50,
@@ -265,18 +265,6 @@ const initialState = {
           discount: 0,
           total: 50,
           currency: 'EGP',
-        },
-        billingDetails: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          city: '',
-          district: '',
-          floor: '',
-          appartment: '',
-          address: '',
-          specialNotes: '',
         },
         shippingDetails: {
           firstName: '',

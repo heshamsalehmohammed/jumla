@@ -1,11 +1,10 @@
 
 .wrapper {
     display: inline-flex;
-    height: 75px;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    padding: 13px;
+    padding: 5px;
   }
   .wrapper .option {
     background: #fff;
@@ -17,7 +16,7 @@
     margin: 0 10px;
     border-radius: 5px;
     cursor: pointer;
-    padding: 0 10px;
+    padding: 5px 10px;
     border: 2px solid lightgrey;
     transition: all 0.3s ease;
   }
