@@ -33,6 +33,17 @@ export function cart_UpdateProductCount(productId,stockDetailId, count) {
   };
 }
 
+export function cart_UpdateProductProfit(productId,stockDetailId, profitAmountPerPiece) {
+  return {
+    type: actionTypes.UPDATE_CART_PRODUCT_PROFIT,
+    payload: {
+      productId,
+      stockDetailId,
+      profitAmountPerPiece,
+    },
+  };
+}
+
 export function cart_RemoveProduct(productId, stockDetailId) {
   return {
     type: actionTypes.REMOVE_PRODUCT_FROM_CART,
@@ -58,13 +69,14 @@ export function cart_EmptyCart() {
   };
 }
 
-export function cart_AddProduct(productId, stockDetailId, count) {
+export function cart_AddProduct(productId, stockDetailId, count,profitAmountPerPiece) {
   return {
     type: actionTypes.ADD_PRODUCT_TO_CART,
     payload: {
       productId,
       stockDetailId,
       count,
+      profitAmountPerPiece
     },
   };
 }

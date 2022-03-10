@@ -19,8 +19,10 @@ import {
   cart_AddProduct,
   wishlist_AddProduct,
   wishlist_RemoveProduct,
+  cart_UpdateProductProfit,
 } from '../../../../redux/actionCreators/cartActionCreators';
 import FancyRadio from '../../../common/fancyRadio/fancyRadio';
+import NumericInput from 'react-numeric-input';
 
 const ProductDetails = withRouter((props) => {
   let {
@@ -69,6 +71,7 @@ const ProductDetails = withRouter((props) => {
   );
 
   const isInCart = orderedProduct ? true : false;
+  const [profit, setProfit] = useState(0.0);
 
   const isInWishlist = useSelector(
     (state) =>
@@ -79,11 +82,19 @@ const ProductDetails = withRouter((props) => {
     ? true
     : false;
 
+  useEffect(() => {
+    if (isInCart) {
+      dispatch(
+        cart_UpdateProductProfit(productDetails.id, stockDetailId, profit)
+      );
+    }
+  }, [profit]);
+
   const toggleAddingProductToCartHandler = (product, inCart) => {
     if (inCart) {
       dispatch(cart_RemoveProduct(product.id, stockDetailId));
     } else {
-      dispatch(cart_AddProduct(product.id, stockDetailId, 1));
+      dispatch(cart_AddProduct(product.id, stockDetailId, 1, profit));
     }
   };
 
@@ -161,9 +172,6 @@ const ProductDetails = withRouter((props) => {
               <div className="product-details-product-description p-2">
                 {productDetails.description}
               </div>
-              <span className="product-details-product-price p-2">
-                {productDetails.price + productDetails.priceCurrency}
-              </span>
             </div>
           </div>
           <div className="product-actions-content-section p-2 d-flex justify-content-center">
@@ -202,6 +210,86 @@ const ProductDetails = withRouter((props) => {
                 </Button>
               </OverlayTrigger>
             </div>
+          </div>
+        </div>
+        <div className="product-details-content-wrapper mt-2 d-flex flex-column justify-content-between">
+          <div className="product-details-content-section">
+            <Table
+              className="product-spec-table"
+              striped
+              bordered
+              hover
+              variant="dark"
+              style={{marginBottom: '0px'}}>
+              <tbody>
+                <tr>
+                  <td>Product Price</td>
+                  <td>
+                    {productDetails.oldPrice && (
+                      <span
+                        className="p-1"
+                        style={{textDecoration: 'line-through',display:'inline-block'}}>
+                        {productDetails.oldPrice +" "+ productDetails.priceCurrency}
+                      </span>
+                    )}
+                    <span className="p-1">
+                      {productDetails.price +" "+ productDetails.priceCurrency}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Shipping Price</td>
+                  <td>
+                    {productDetails.shippingPrice +
+                      ' ' +
+                      productDetails.priceCurrency}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Service Price</td>
+                  <td>
+                    {Math.trunc(
+                      productDetails.servicePriceRate *
+                        productDetails.price *
+                        100
+                    ) /
+                      100 +
+                      ' ' +
+                      productDetails.priceCurrency}
+                  </td>
+                </tr>
+                <tr>
+                  <td style={{lineHeight: '40px'}}>Profit Amount</td>
+                  <td>
+                    <NumericInput
+                      className="form-control"
+                      min={0}
+                      precision={2}
+                      value={
+                        isInCart ? orderedProduct.profitAmountPerPiece : profit
+                      }
+                      format={(num) => {
+                        return num + ' ' + productDetails.priceCurrency;
+                      }}
+                      onChange={(value) => {
+                        setProfit(value);
+                      }}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total Price</td>
+                  <td>
+                    {productDetails.price +
+                      productDetails.shippingPrice +
+                      productDetails.servicePriceRate * productDetails.price +
+                      profit +
+                      ' ' +
+                      productDetails.priceCurrency}
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
           </div>
         </div>
         <div className="product-details-content-wrapper mt-2 d-flex flex-column justify-content-between">

@@ -1,10 +1,8 @@
 const initialState = {
   cartState: {
     cartProducts: [
-      {productId: 1, stockDetailId: 1, count: 1},
-      {productId: 2, stockDetailId: 1, count: 4},
-      {productId: 5, stockDetailId: 1, count: 3},
-      {productId: 4, stockDetailId: 1, count: 1},
+      {productId: 1, stockDetailId: 1, count: 1, profitAmountPerPiece: 10},
+      {productId: 2, stockDetailId: 1, count: 4, profitAmountPerPiece: 20},
     ],
     wishlistProducts: [{productId: 5}, {productId: 4}],
   },
@@ -22,6 +20,8 @@ const initialState = {
         ],
         price: 23,
         oldPrice: 50,
+        shippingPrice: 10,
+        servicePriceRate: 0.1,
         priceCurrency: 'EGP',
         mainImage: 'https://source.unsplash.com/1600x900/?product',
         subImages: [
@@ -59,6 +59,8 @@ const initialState = {
         ],
         price: 23,
         oldPrice: 50,
+        shippingPrice: 10,
+        servicePriceRate: 0.1,
         priceCurrency: 'EGP',
         mainImage: 'https://source.unsplash.com/1600x900/?product',
         subImages: [
@@ -68,116 +70,6 @@ const initialState = {
         ],
         stock: {
           stockDetails: [],
-          totalNumAvailableInStock: 12,
-        },
-        createdDate: 4567,
-        lastUpdatedDate: 3567,
-        createdBy: {
-          userId: 4567,
-          userName: 'Hesham',
-        },
-        inventoryStatus: 'outofstock',
-        categoryId: 5,
-        categoryName: 'product',
-        rating: 1,
-      },
-      {
-        id: 3,
-        name: 'p3',
-        description: 'p3',
-        specifications: [
-          {
-            name: 'weight',
-            value: '23kg',
-          },
-        ],
-        price: 23,
-        oldPrice: 50,
-        priceCurrency: 'EGP',
-        mainImage: 'https://source.unsplash.com/1600x900/?product',
-        subImages: [
-          'https://source.unsplash.com/1600x900/?product',
-          'https://source.unsplash.com/1600x900/?product',
-          'https://source.unsplash.com/1600x900/?product',
-        ],
-        stock: {
-          stockDetails: [
-            {id: 1, size: 'XL', color: 'red', numAvailableInStock: 6},
-            {id: 2, size: 'L', color: 'red', numAvailableInStock: 6},
-          ],
-          totalNumAvailableInStock: 12,
-        },
-        createdDate: 4567,
-        lastUpdatedDate: 3567,
-        createdBy: {
-          userId: 4567,
-          userName: 'Hesham',
-        },
-        inventoryStatus: 'outofstock',
-        categoryId: 5,
-        categoryName: 'product',
-        rating: 1,
-      },
-      {
-        id: 4,
-        name: 'p4',
-        description: 'p4',
-        specifications: [
-          {
-            name: 'weight',
-            value: '23kg',
-          },
-        ],
-        price: 23,
-        priceCurrency: 'EGP',
-        mainImage: 'https://source.unsplash.com/1600x900/?product',
-        subImages: [
-          'https://source.unsplash.com/1600x900/?product',
-          'https://source.unsplash.com/1600x900/?product',
-          'https://source.unsplash.com/1600x900/?product',
-        ],
-        stock: {
-          stockDetails: [
-            {id: 1, size: 'XL', color: 'red', numAvailableInStock: 6},
-            {id: 2, size: 'L', color: 'red', numAvailableInStock: 6},
-          ],
-          totalNumAvailableInStock: 12,
-        },
-        createdDate: 4567,
-        lastUpdatedDate: 3567,
-        createdBy: {
-          userId: 4567,
-          userName: 'Hesham',
-        },
-        inventoryStatus: 'outofstock',
-        categoryId: 5,
-        categoryName: 'product',
-        rating: 1,
-      },
-      {
-        id: 5,
-        name: 'p5',
-        description: 'p5',
-        specifications: [
-          {
-            name: 'weight',
-            value: '23kg',
-          },
-        ],
-        price: 23,
-        priceCurrency: 'EGP',
-        mainImage: 'https://source.unsplash.com/1600x900/?product',
-        subImages: [
-          'https://source.unsplash.com/1600x900/?product',
-          'https://source.unsplash.com/1600x900/?product',
-          'https://source.unsplash.com/1600x900/?product',
-        ],
-        hasSizes: true,
-        stock: {
-          stockDetails: [
-            {id: 1, size: 'XL', color: 'red', numAvailableInStock: 6},
-            {id: 2, size: 'L', color: 'red', numAvailableInStock: 6},
-          ],
           totalNumAvailableInStock: 12,
         },
         createdDate: 4567,

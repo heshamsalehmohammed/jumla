@@ -29,6 +29,7 @@
     "react-i18next": "^11.12.0",
     "react-image-magnifiers": "^1.4.0",
     "react-joi-validation": "^1.7.0",
+    "react-numeric-input": "^2.2.3",
     "react-redux": "^7.2.5",
     "react-responsive": "^9.0.0-beta.4",
     "react-reveal": "^1.2.2",

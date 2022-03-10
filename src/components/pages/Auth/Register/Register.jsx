@@ -78,7 +78,10 @@ class Register extends Form {
           {this.renderSelect(
             'accountType',
             t('auth.accountType'),
-            [{_id: 1, name: 'marketer'}],
+            [
+              {_id: 1, name: 'Merchant'},
+              {_id: 2, name: 'Marketer'},
+            ],
             'form-group mb-2',
             'form-label register-label',
             'form-control outfit'

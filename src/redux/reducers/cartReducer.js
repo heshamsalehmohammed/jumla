@@ -90,6 +90,19 @@ const cartReducer = (state = initialState.cartState, action) => {
         })),
       };
     }
+    case actionsTypes.UPDATE_CART_PRODUCT_PROFIT: {
+      return {
+        ...state,
+        cartProducts: state.cartProducts.map((op) => ({
+          ...op,
+          profitAmountPerPiece:
+            op.productId === action.payload.productId &&
+            op.stockDetailId === action.payload.stockDetailId
+              ? action.payload.profitAmountPerPiece
+              : op.profitAmountPerPiece,
+        })),
+      };
+    }
     case actionsTypes.REMOVE_PRODUCT_FROM_CART: {
       return {
         ...state,
@@ -133,6 +146,7 @@ const cartReducer = (state = initialState.cartState, action) => {
             productId: action.payload.productId,
             stockDetailId: action.payload.stockDetailId,
             count: action.payload.count,
+            profitAmountPerPiece: action.payload.profitAmountPerPiece
           },
         ],
       };
