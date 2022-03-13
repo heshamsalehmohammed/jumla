@@ -50,8 +50,11 @@ const Cart = (props) => {
   };
 
   const nameBodyTemplate = (rowData) => {
+    const orderedProduct = cartProducts.find(
+      (cp) => cp.productId === rowData.id
+    );
     return (
-      <Link to={`/dashboard/productdetails/${rowData.id}`}>{rowData.name}</Link>
+      <Link to={`/dashboard/productdetails/${rowData.id}/${orderedProduct.stockDetailId}`}>{rowData.name}</Link>
     );
   };
 
@@ -72,8 +75,8 @@ const Cart = (props) => {
     return <span>{rowData.categoryName}</span>;
   };
 
-  const trashClickHandler = (productId) => {
-    dispatch(cart_RemoveProduct(productId));
+  const trashClickHandler = (productId, stockDetailId) => {
+    dispatch(cart_RemoveProduct(productId, stockDetailId));
   };
 
   const countBodyTemplate = (rowData) => {
@@ -90,6 +93,9 @@ const Cart = (props) => {
   };
 
   const deleteBodyTemplate = (rowData) => {
+    const orderedProduct = cartProducts.find(
+      (cp) => cp.productId === rowData.id
+    );
     return (
       <span>
         <i
@@ -98,7 +104,9 @@ const Cart = (props) => {
           }}
           className="fa fa-trash cart-item-trash-icon"
           aria-hidden="true"
-          onClick={() => trashClickHandler(rowData.id)}></i>
+          onClick={() =>
+            trashClickHandler(rowData.id, orderedProduct.stockDetailId)
+          }></i>
       </span>
     );
   };

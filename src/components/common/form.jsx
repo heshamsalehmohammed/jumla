@@ -4,6 +4,7 @@ import Input from './input';
 import TextAreaInput from './textAreaInput';
 import UploadFiles from './uploadFiles';
 import Select from './select';
+import _ from 'lodash';
 
 class Form extends Component {
   state = {
@@ -37,16 +38,21 @@ class Form extends Component {
     this.doSubmit();
   };
 
-  handleChange = ({currentTarget: input}) => {
+  handleChange = ({currentTarget: input}, AdditionalHandleChange) => {
     const errors = {...this.state.errors};
     const errorMessage = this.validateProperty(input);
     if (errorMessage) errors[input.name] = errorMessage;
     else delete errors[input.name];
 
-    const data = {...this.state.data};
-    data[input.name] = input.value;
-
-    this.setState({data, errors});
+    if (AdditionalHandleChange) {
+      const name = input.name;
+      const value = input.value;
+      AdditionalHandleChange(name, value, errors);
+    } else {
+      const data = _.cloneDeep(this.state.data);
+      data[input.name] = input.value;
+      this.setState({data, errors});
+    }
   };
 
   renderButton(label, type, classes, styles = {}) {
@@ -99,15 +105,12 @@ class Form extends Component {
     inputStyle = {},
     placeHolder = '',
     AdditionalHandleChange,
-    value = null
+    value = null,
+    error = null,
+    disabled = false
   ) {
     const inputChange = (e) => {
-      this.handleChange(e);
-      if (AdditionalHandleChange) {
-        const name = e.currentTarget.name;
-        const value = e.currentTarget.value;
-        AdditionalHandleChange(name, value);
-      }
+      this.handleChange(e, AdditionalHandleChange);
     };
 
     const {data, errors} = this.state;
@@ -119,13 +122,14 @@ class Form extends Component {
         value={value ? value : data[name]}
         label={label}
         onChange={inputChange}
-        error={errors[name]}
+        error={error ? error : errors[name]}
         groupClasses={groupClasses}
         labelClasses={labelClasses}
         inputClasses={inputClasses}
         hasLabel={hasLabel}
         inputStyle={inputStyle}
         placeHolder={placeHolder}
+        disabled={disabled}
       />
     );
   }

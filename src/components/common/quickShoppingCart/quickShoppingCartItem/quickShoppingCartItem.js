@@ -29,7 +29,8 @@ const QuickShoppingCartItemgCartItem = (props) => {
   return (
     <Row className="cart-item p-2 mb-1">
       <Col xs={3} className="p-1">
-        <Link to={`/dashboard/productdetails/${product.id}`}>
+        <Link
+          to={`/dashboard/productdetails/${product.id}/${orderedProduct.stockDetailId}`}>
           <img
             className="img-fluid"
             src="https://i.imgur.com/ba3tvGm.jpg"
@@ -40,7 +41,7 @@ const QuickShoppingCartItemgCartItem = (props) => {
       <Col
         xs={8}
         className="text-center p-3 d-flex flex-column justify-content-between">
-        <Link to={`/dashboard/productdetails/${product.id}`}>
+        <Link to={`/dashboard/productdetails/${product.id}/${orderedProduct.stockDetailId}`}>
           <div className="">
             <h4 className="cart-item-product-name">{product.name}</h4>
             <p>{product.price} EGP</p>

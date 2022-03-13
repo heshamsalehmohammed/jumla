@@ -88,6 +88,7 @@ const initialState = {
       {
         id: 1,
         name: 'cat 1',
+        description: 'cat 1',
         subCategories: [
           {id: 1, name: 'sub cat 1'},
           {id: 2, name: 'sub cat 2'},
@@ -98,8 +99,8 @@ const initialState = {
           {id: 4, name: 'sub cat 4'},
         ],
       },
-      {id: 2, name: 'cat 2'},
-      {id: 3, name: 'cat 3'},
+      {id: 2, name: 'cat 2', description: 'cat 2'},
+      {id: 3, name: 'cat 3', description: 'cat 3'},
       {
         id: 4,
         name: 'cat 4',
@@ -181,6 +182,23 @@ const initialState = {
         orderStatusId: 1,
       },
     ],
+  },
+  lookupState: {
+    AccountTypes: [
+      {_id: 1, name: 'Merchant'},
+      {_id: 2, name: 'Marketer'},
+    ],
+    Privileges: [
+      {_id: 1, name: 'User'},
+      {_id: 2, name: 'Admin'},
+      {_id: 3, name: 'Owner'},
+    ],
+    InventoryStatuses: [
+      {_id: 1, name: 'In Stock'},
+      {_id: 2, name: 'Out Of Stock'},
+      {_id: 3, name: 'Low Stock'},
+    ],
+    PriceCurrencies: [{_id: 'EGP', name: 'EGP'}],
   },
 };
 

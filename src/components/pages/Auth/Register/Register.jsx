@@ -8,6 +8,7 @@ import auth from '../../../../services/authService';
 import {withTranslation} from 'react-i18next';
 import {languages} from '../../../common/enums';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 class Register extends Form {
   state = {
@@ -78,10 +79,7 @@ class Register extends Form {
           {this.renderSelect(
             'accountType',
             t('auth.accountType'),
-            [
-              {_id: 1, name: 'Merchant'},
-              {_id: 2, name: 'Marketer'},
-            ],
+            this.props.accountTypes,
             'form-group mb-2',
             'form-label register-label',
             'form-control outfit'
@@ -99,4 +97,10 @@ class Register extends Form {
   }
 }
 
-export default withRouter(withTranslation()(Register));
+function mapStateToProps(state) {
+  return {
+    accountTypes: state.lookupState.AccountTypes,
+  };
+}
+
+export default withRouter(withTranslation()(connect(mapStateToProps)(Register)));

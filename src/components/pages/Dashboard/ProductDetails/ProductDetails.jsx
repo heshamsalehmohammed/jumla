@@ -23,20 +23,26 @@ import {
 } from '../../../../redux/actionCreators/cartActionCreators';
 import FancyRadio from '../../../common/fancyRadio/fancyRadio';
 import NumericInput from 'react-numeric-input';
+import {removeNegativeValue} from '../../../common';
+import {getProductTotalPrice} from '../../../../services/cartService';
 
 const ProductDetails = withRouter((props) => {
   let {
     match: {
-      params: {id: productId},
+      params: {
+        productid: externalProductId,
+        stockdetailid: externalStockDetailId,
+      },
     },
   } = props;
 
-  productId = Number(productId);
+  externalProductId = Number(externalProductId);
+  externalStockDetailId = Number(externalStockDetailId);
 
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) =>
-    state.productsState.products.filter((p) => p.id === productId)
+    state.productsState.products.filter((p) => p.id === externalProductId)
   )[0];
 
   const productColors = [
@@ -49,9 +55,18 @@ const ProductDetails = withRouter((props) => {
   ];
   const [mainImage, setMainImage] = useState(productDetails.mainImage);
 
-  const [stockDetailId, setStockDetailId] = useState(0);
-  const [selectedColor, setSelectedColor] = useState('');
-  const [selectedSize, setSelectedSize] = useState('');
+  const [stockDetailId, setStockDetailId] = useState(externalStockDetailId);
+
+  const productStockDetails = productDetails?.stock?.stockDetails?.find(
+    (sd) => sd.id === stockDetailId
+  );
+
+  const [selectedColor, setSelectedColor] = useState(
+    productStockDetails ? productStockDetails.color : ''
+  );
+  const [selectedSize, setSelectedSize] = useState(
+    productStockDetails ? productStockDetails.size : ''
+  );
 
   useEffect(() => {
     if (selectedColor !== '' && selectedSize !== '') {
@@ -66,17 +81,21 @@ const ProductDetails = withRouter((props) => {
   const orderedProduct = useSelector(
     (state) =>
       state.cartState.cartProducts.find(
-        (cp) => cp.productId === productId && cp.stockDetailId === stockDetailId
+        (cp) =>
+          cp.productId === externalProductId &&
+          cp.stockDetailId === stockDetailId
       ) ?? null
   );
 
   const isInCart = orderedProduct ? true : false;
-  const [profit, setProfit] = useState(0.0);
+  const [profit, setProfit] = useState(
+    isInCart ? orderedProduct.profitAmountPerPiece : 0.0
+  );
 
   const isInWishlist = useSelector(
     (state) =>
       state.cartState.wishlistProducts.find(
-        (cp) => cp.productId === productId
+        (cp) => cp.productId === externalProductId
       ) ?? null
   )
     ? true
@@ -228,12 +247,19 @@ const ProductDetails = withRouter((props) => {
                     {productDetails.oldPrice && (
                       <span
                         className="p-1"
-                        style={{textDecoration: 'line-through',display:'inline-block'}}>
-                        {productDetails.oldPrice +" "+ productDetails.priceCurrency}
+                        style={{
+                          textDecoration: 'line-through',
+                          display: 'inline-block',
+                        }}>
+                        {productDetails.oldPrice +
+                          ' ' +
+                          productDetails.priceCurrency}
                       </span>
                     )}
                     <span className="p-1">
-                      {productDetails.price +" "+ productDetails.priceCurrency}
+                      {productDetails.price +
+                        ' ' +
+                        productDetails.priceCurrency}
                     </span>
                   </td>
                 </tr>
@@ -269,10 +295,14 @@ const ProductDetails = withRouter((props) => {
                         isInCart ? orderedProduct.profitAmountPerPiece : profit
                       }
                       format={(num) => {
-                        return num + ' ' + productDetails.priceCurrency;
+                        return (
+                          removeNegativeValue(num) +
+                          ' ' +
+                          productDetails.priceCurrency
+                        );
                       }}
                       onChange={(value) => {
-                        setProfit(value);
+                        setProfit(removeNegativeValue(value));
                       }}
                     />
                   </td>
@@ -280,10 +310,9 @@ const ProductDetails = withRouter((props) => {
                 <tr>
                   <td>Total Price</td>
                   <td>
-                    {productDetails.price +
-                      productDetails.shippingPrice +
-                      productDetails.servicePriceRate * productDetails.price +
-                      profit +
+                    {getProductTotalPrice(productDetails, {
+                      profitAmountPerPiece: profit,
+                    }) +
                       ' ' +
                       productDetails.priceCurrency}
                   </td>

@@ -12,19 +12,19 @@ import {withRouter} from 'react-router-dom';
 import {Accordion, AccordionTab} from 'primereact/accordion';
 import Button from 'react-bootstrap/Button';
 import {v4 as uuidv4} from 'uuid';
+import {removeNegativeValue, getCategoriesOptions} from '../../../../common';
 
 class AddProductAccordionForm extends Form {
   constructor(props) {
     super(props);
-    this.getCategoryOptions = this.getCategoryOptions.bind(this);
-    this.getCategoriesOptions = this.getCategoriesOptions.bind(this);
-
     this.updateSpecNameHandler = this.updateSpecNameHandler.bind(this);
     this.updateSpecValueHandler = this.updateSpecValueHandler.bind(this);
     this.updateStockDetailSizeHandler =
       this.updateStockDetailSizeHandler.bind(this);
     this.updateStockDetailNumStockHandler =
       this.updateStockDetailNumStockHandler.bind(this);
+    this.updateTotalNumAvailableInStockHandler =
+      this.updateTotalNumAvailableInStockHandler.bind(this);
   }
 
   state = {
@@ -70,8 +70,13 @@ class AddProductAccordionForm extends Form {
       ),
       totalNumAvailableInStock: Joi.number()
         .required()
+        .greater(0)
         .label('Available In Stock'),
     }),
+    'stock.totalNumAvailableInStock': Joi.number()
+      .required()
+      .greater(0)
+      .label('Available In Stock'),
     inventoryStatus: Joi.string().required().label('Product Inventory Status'),
     categoryId: Joi.number().required().label('Product Category'),
   };
@@ -100,30 +105,6 @@ class AddProductAccordionForm extends Form {
       });
     });
   }
-
-  getCategoryOptions = (category, path) => {
-    let catOptions = [];
-    catOptions.push({
-      _id: category.id,
-      name: path ? `${path} / ${category.name}` : category.name,
-    });
-    if (category.subCategories && category.subCategories.length > 0) {
-      category.subCategories.forEach((subCat) => {
-        catOptions = catOptions.concat(
-          this.getCategoryOptions(subCat, category.name)
-        );
-      });
-    }
-    return catOptions;
-  };
-
-  getCategoriesOptions = (categories) => {
-    let catOptions = [];
-    categories.forEach((cat) => {
-      catOptions = catOptions.concat(this.getCategoryOptions(cat));
-    });
-    return catOptions;
-  };
 
   addNewSpecHandler = () => {
     const uniqueId = uuidv4();
@@ -232,9 +213,9 @@ class AddProductAccordionForm extends Form {
     return name.split('_$$$_')[1];
   };
 
-  updateSpecNameHandler = (name, newValue) => {
+  updateSpecNameHandler = (name, newValue, errors) => {
     this.setState({
-      ...this.state,
+      errors: errors,
       data: {
         ...this.state.data,
         specifications: [
@@ -249,9 +230,9 @@ class AddProductAccordionForm extends Form {
       },
     });
   };
-  updateSpecValueHandler = (name, newValue) => {
+  updateSpecValueHandler = (name, newValue, errors) => {
     this.setState({
-      ...this.state,
+      errors: errors,
       data: {
         ...this.state.data,
         specifications: [
@@ -266,9 +247,9 @@ class AddProductAccordionForm extends Form {
       },
     });
   };
-  updateStockDetailSizeHandler = (name, newValue) => {
+  updateStockDetailSizeHandler = (name, newValue, errors) => {
     this.setState({
-      ...this.state,
+      errors: errors,
       data: {
         ...this.state.data,
         stock: {
@@ -289,9 +270,22 @@ class AddProductAccordionForm extends Form {
     });
   };
 
-  updateStockDetailColorHandler = (name, newValue) => {
+  updateTotalNumAvailableInStockHandler = (name, newValue, errors) => {
     this.setState({
-      ...this.state,
+      errors: errors,
+      data: {
+        ...this.state.data,
+        stock: {
+          ...this.state.data.stock,
+          totalNumAvailableInStock: newValue,
+        },
+      },
+    });
+  };
+
+  updateStockDetailColorHandler = (name, newValue, errors) => {
+    this.setState({
+      errors: errors,
       data: {
         ...this.state.data,
         stock: {
@@ -312,24 +306,28 @@ class AddProductAccordionForm extends Form {
     });
   };
 
-  updateStockDetailNumStockHandler = (name, newValue) => {
+  updateStockDetailNumStockHandler = (name, newValue, errors) => {
+    let totalNumberInStock = 0;
+    let newStockDetails = [
+      ...this.state.data.stock.stockDetails.map((stockDetail) => {
+        const numInStock =
+          stockDetail.id === this.getIdFromName(name)
+            ? Number(newValue)
+            : stockDetail.numAvailableInStock;
+        totalNumberInStock += numInStock;
+        return {
+          ...stockDetail,
+          numAvailableInStock: numInStock,
+        };
+      }),
+    ];
     this.setState({
-      ...this.state,
+      errors: errors,
       data: {
         ...this.state.data,
         stock: {
-          ...this.state.data.stock,
-          stockDetails: [
-            ...this.state.data.stock.stockDetails.map((stockDetail) => {
-              return {
-                ...stockDetail,
-                numAvailableInStock:
-                  stockDetail.id === this.getIdFromName(name)
-                    ? newValue
-                    : stockDetail.numAvailableInStock,
-              };
-            }),
-          ],
+          totalNumAvailableInStock: totalNumberInStock,
+          stockDetails: newStockDetails,
         },
       },
     });
@@ -413,29 +411,17 @@ class AddProductAccordionForm extends Form {
               {this.renderSelect(
                 'priceCurrency',
                 'Product Price Currency',
-                [{_id: 'EGP', name: 'EGP'}],
+                this.props.priceCurrencies,
                 'form-group mb-1 col-md-5 col-sm-12',
                 'form-label',
                 'form-control outfit'
               )}
             </div>
             <div className="row form-row justify-content-center justify-content-sm-start">
-              {this.renderInput(
-                'totalNumAvailableInStock',
-                'Total Number Available in Stock',
-                'number',
-                'form-group mb-1 col-md-5 col-sm-12',
-                'form-label',
-                'form-control outfit'
-              )}
               {this.renderSelect(
                 'inventoryStatus',
                 'Inventory Status',
-                [
-                  {_id: 'instock', name: 'In Stock'},
-                  {_id: 'outofstock', name: 'Out Of Stock'},
-                  {_id: 'lowstock', name: 'Low Stock'},
-                ],
+                this.props.inventoryStatuses,
                 'form-group mb-1 col-md-5 col-sm-12',
                 'form-label',
                 'form-control outfit'
@@ -445,7 +431,7 @@ class AddProductAccordionForm extends Form {
               {this.renderSelect(
                 'categoryId',
                 'Category',
-                this.getCategoriesOptions(this.props.categories),
+                getCategoriesOptions(this.props.categories),
                 'form-group mb-1 col-md-8 col-sm-12',
                 'form-label',
                 'form-control outfit'
@@ -473,7 +459,8 @@ class AddProductAccordionForm extends Form {
                     {},
                     '',
                     this.updateSpecNameHandler,
-                    spec.name
+                    spec.name,
+                    this.state.errors[`specifications.name_$$$_${spec.id}`]
                   )}
                   {this.renderInput(
                     `specifications.value_$$$_${spec.id}`,
@@ -486,7 +473,8 @@ class AddProductAccordionForm extends Form {
                     {},
                     '',
                     this.updateSpecValueHandler,
-                    spec.value
+                    spec.value,
+                    this.state.errors[`specifications.value_$$$_${spec.id}`]
                   )}
                   <Button
                     onClick={() => this.removeSpecHandler(spec.id)}
@@ -532,7 +520,8 @@ class AddProductAccordionForm extends Form {
                     {},
                     '',
                     this.updateStockDetailSizeHandler,
-                    sd.size
+                    sd.size,
+                    this.state.errors[`stock.stockDetails.size_$$$_${sd.id}`]
                   )}
                   {this.renderInput(
                     `stock.stockDetails.color_$$$_${sd.id}`,
@@ -545,7 +534,8 @@ class AddProductAccordionForm extends Form {
                     {},
                     '',
                     this.updateStockDetailColorHandler,
-                    sd.color
+                    sd.color,
+                    this.state.errors[`stock.stockDetails.color_$$$_${sd.id}`]
                   )}
                   {this.renderInput(
                     `stock.stockDetails.numAvailableInStock_$$$_${sd.id}`,
@@ -558,7 +548,10 @@ class AddProductAccordionForm extends Form {
                     {},
                     '',
                     this.updateStockDetailNumStockHandler,
-                    sd.numAvailableInStock
+                    sd.numAvailableInStock,
+                    this.state.errors[
+                      `stock.stockDetails.numAvailableInStock_$$$_${sd.id}`
+                    ]
                   )}
                   <Button
                     onClick={() => this.removeStockDetailHandler(sd.id)}
@@ -582,6 +575,21 @@ class AddProductAccordionForm extends Form {
                 Add New Stock Detail
               </Button>
             </div>
+            {this.renderInput(
+              'stock.totalNumAvailableInStock',
+              'Total Number Available in Stock',
+              'number',
+              'form-group mb-1 col-md-5 col-sm-12',
+              'form-label',
+              'form-control outfit',
+              true,
+              {},
+              '',
+              this.updateTotalNumAvailableInStockHandler,
+              this.state.data.stock.totalNumAvailableInStock,
+              this.state.errors['stock.totalNumAvailableInStock'],
+              this.state.data.stock.stockDetails.length > 0
+            )}
           </AccordionTab>
         </Accordion>
         <div className="form-row d-flex p-3 justify-content-center">

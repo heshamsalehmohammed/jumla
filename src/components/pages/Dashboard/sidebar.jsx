@@ -94,7 +94,24 @@ export class Sidebar extends Component {
                   </div>
                 </li>
 
-
+                <li className="sidebar-dropdown">
+                  <div
+                    className="sidebar-dropdown-header"
+                    onClick={this.sidebarDDHeaderHandler}>
+                    <i className="fa fab fa-users"></i>
+                    <span className="m-1">Categories</span>
+                  </div>
+                  <div className="sidebar-submenu">
+                    <ul>
+                      <li>
+                        <Link to="/dashboard/addcategory">Add Category</Link>
+                      </li>
+                      <li>
+                        <Link to="/dashboard/categories">All Categories</Link>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
 
                 <li className="sidebar-dropdown">
                   <div

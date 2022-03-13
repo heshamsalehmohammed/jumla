@@ -18,6 +18,8 @@ import ProductsNavBar from './Products/ProductsNavBar/ProductsNavBar';
 import AdCarousel from './AdCarousel/AdCarousel';
 import AddProduct from './AddProduct/AddProduct';
 import Footer from './Footer/Footer';
+import AddCategory from './AddCategory/AddCategory';
+import Categories from './Categories/Categories';
 
 export default withRouter(
   class Dashboard extends Component {
@@ -66,10 +68,19 @@ export default withRouter(
                     <Route path={path + '/wishlist'} component={Wishlist} />
                     <Route path={path + '/products'} component={Products} />
                     <Route
-                      path={path + '/productdetails/:id'}
+                      path={path + '/productdetails/:productid/:stockdetailid'}
+                      component={ProductDetails}
+                    />
+                    <Route
+                      path={path + '/productdetails/:productid'}
                       component={ProductDetails}
                     />
                     <Route path={path + '/addproduct'} component={AddProduct} />
+                    <Route
+                      path={path + '/addcategory'}
+                      component={AddCategory}
+                    />
+                    <Route path={path + '/categories'} component={Categories} />
                     <Route path={path + '/orders'} component={Orders} />
                     <Route
                       path={path + '/orderdetails/:id'}
@@ -83,7 +94,7 @@ export default withRouter(
                   </Switch>
                 </div>
               </main>
-              <Footer/>
+              <Footer />
             </div>
           </div>
         </div>

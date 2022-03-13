@@ -11,7 +11,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Table from 'react-bootstrap/Table';
-import {getSubtotalPrice} from '../../../../services/cartService'
+import {
+  getSubtotalPrice,
+  getProductTotalPrice,
+} from '../../../../services/cartService';
 import CheckoutAccordionForm from './CheckoutAccordionForm/CheckoutAccordionForm';
 
 const Checkout = (props) => {
@@ -28,12 +31,9 @@ const Checkout = (props) => {
   const subtotalPrice = getSubtotalPrice(cartProducts, cartProductsDetails);
   const totalPrice = subtotalPrice - discount;
 
-
   return (
     <Row className="justify-content-center p-2">
-      <Col
-        md={4}
-        className="checkout-summury-col  d-flex flex-column">
+      <Col md={4} className="checkout-summury-col  d-flex flex-column">
         <h3 className="text-center mb-2">Order Summary</h3>
         <Table
           className="cart-summury-table"
@@ -53,9 +53,15 @@ const Checkout = (props) => {
               return (
                 <tr key={index}>
                   <td>
-                    {product.name} X {co.count}
+                    {
+                      <Link
+                        to={`/dashboard/productdetails/${product.id}/${co.stockDetailId}`}>
+                        {product.name}
+                      </Link>
+                    }{' '}
+                    X {co.count}
                   </td>
-                  <td>{product.price * co.count}</td>
+                  <td>{getProductTotalPrice(product, co) * co.count}</td>
                 </tr>
               );
             })}
@@ -80,7 +86,7 @@ const Checkout = (props) => {
         <Button>Place Order</Button>
       </Col>
       <Col md={8}>
-        <CheckoutAccordionForm/>
+        <CheckoutAccordionForm />
       </Col>
     </Row>
   );
