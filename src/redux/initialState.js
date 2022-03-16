@@ -147,10 +147,8 @@ const initialState = {
       {
         id: 1,
         productsDetails: [
-          {productId: 1, stockDetailId: 1, count: 1}, // to ref to the whole product object not just the id
-          {productId: 2, stockDetailId: 1, count: 4},
-          {productId: 5, stockDetailId: 1, count: 3},
-          {productId: 4, stockDetailId: 1, count: 1},
+          {productId: 1, stockDetailId: 1, count: 1, profitAmountPerPiece: 10}, // to ref to the whole product object not just the id
+          {productId: 2, stockDetailId: 1, count: 4, profitAmountPerPiece: 10},
         ],
         priceDetails: {
           subTotal: 50,
@@ -160,16 +158,16 @@ const initialState = {
           currency: 'EGP',
         },
         shippingDetails: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          city: '',
-          district: '',
-          floor: '',
-          appartment: '',
-          address: '',
-          specialNotes: '',
+          firstName: 'hesham',
+          lastName: 'saleh',
+          email: 'h@h.com',
+          phone: '020202',
+          city: 'helwan',
+          district: 'baharya',
+          floor: '1',
+          appartment: '1',
+          address: 'pla pla pla',
+          specialNotes: 'pla pla pla',
         },
         createdDate: 4567,
         lastUpdatedDate: 3567,

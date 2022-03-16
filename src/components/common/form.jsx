@@ -142,7 +142,8 @@ class Form extends Component {
     inputClasses = 'form-control',
     hasLabel = true,
     inputStyle = {},
-    placeHolder = ''
+    placeHolder = '',
+    disabled = false
   ) {
     const {data, errors} = this.state;
 
@@ -159,6 +160,7 @@ class Form extends Component {
         hasLabel={hasLabel}
         inputStyle={inputStyle}
         placeHolder={placeHolder}
+        disabled={disabled}
       />
     );
   }

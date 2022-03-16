@@ -1,8 +1,12 @@
+export const trunc2Decimals = (val) => {
+  return Math.trunc(val * 100) / 100;
+};
+
 export const getProductTotalPrice = (product, cartProduct) => {
   return (
     product.price +
     product.shippingPrice +
-    product.servicePriceRate * product.price +
+    trunc2Decimals(product.servicePriceRate * product.price) +
     cartProduct.profitAmountPerPiece
   );
 };
@@ -17,5 +21,5 @@ export const getSubtotalPrice = (cartProducts, cartProductsDetails) => {
     tPrice += cProduct.count * getProductTotalPrice(productDetails, cProduct);
   });
 
-  return tPrice;
+  return trunc2Decimals(tPrice);
 };

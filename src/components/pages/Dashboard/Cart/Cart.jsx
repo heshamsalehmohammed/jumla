@@ -15,7 +15,10 @@ import {
   cart_RemoveProduct,
   cart_EmptyCart,
 } from '../../../../redux/actionCreators/cartActionCreators';
-import {getSubtotalPrice} from '../../../../services/cartService';
+import {
+  getSubtotalPrice,
+  getProductTotalPrice,
+} from '../../../../services/cartService';
 import ProductValueDecreaseIncreaseButton from './../../../common/productValueDecreaseIncreaseButton/productValueDecreaseIncreaseButton';
 
 const Cart = (props) => {
@@ -54,12 +57,20 @@ const Cart = (props) => {
       (cp) => cp.productId === rowData.id
     );
     return (
-      <Link to={`/dashboard/productdetails/${rowData.id}/${orderedProduct.stockDetailId}`}>{rowData.name}</Link>
+      <Link
+        to={`/dashboard/productdetails/${rowData.id}/${orderedProduct.stockDetailId}`}>
+        {rowData.name}
+      </Link>
     );
   };
 
   const priceBodyTemplate = (rowData) => {
-    return rowData.price + rowData.priceCurrency;
+    const orderedProduct = cartProducts.find(
+      (cp) => cp.productId === rowData.id
+    );
+    return (
+      getProductTotalPrice(rowData, orderedProduct) + rowData.priceCurrency
+    );
   };
 
   const statusBodyTemplate = (rowData) => {

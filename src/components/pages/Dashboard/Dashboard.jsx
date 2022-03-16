@@ -68,6 +68,10 @@ export default withRouter(
                     <Route path={path + '/wishlist'} component={Wishlist} />
                     <Route path={path + '/products'} component={Products} />
                     <Route
+                      path={path + '/productdetails/:productid/:stockdetailid/:profit'}
+                      component={ProductDetails}
+                    />
+                    <Route
                       path={path + '/productdetails/:productid/:stockdetailid'}
                       component={ProductDetails}
                     />

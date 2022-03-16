@@ -7,6 +7,7 @@ import * as userService from '../../../../../services/userService';
 import auth from '../../../../../services/authService';
 import {withTranslation} from 'react-i18next';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 class EditUserProfileForm extends Form {
   state = {
@@ -76,7 +77,7 @@ class EditUserProfileForm extends Form {
           {this.renderSelect(
             'accountType',
             t('auth.accountType'),
-            [{_id: 1, name: 'marketer'}],
+            this.props.accountTypes,
             'form-group mb-2',
             'form-label EditUserProfileForm-label',
             'form-control outfit'
@@ -94,4 +95,12 @@ class EditUserProfileForm extends Form {
   }
 }
 
-export default withRouter(withTranslation()(EditUserProfileForm));
+function mapStateToProps(state) {
+  return {
+    accountTypes: state.lookupState.AccountTypes,
+  };
+}
+
+export default withRouter(
+  withTranslation()(connect(mapStateToProps)(EditUserProfileForm))
+);

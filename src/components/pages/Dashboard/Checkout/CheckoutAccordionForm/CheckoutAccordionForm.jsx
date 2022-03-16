@@ -23,7 +23,30 @@ class CheckoutAccordionForm extends Form {
       shippingDetails_specialNotes: '',
     },
     errors: {},
+    viewMode: false,
   };
+
+  componentDidMount() {
+    const {orderShippingDetails} = this.props;
+    if (orderShippingDetails) {
+      this.setState({
+        ...this.state,
+        data: {
+          shippingDetails_firstName: orderShippingDetails.firstName,
+          shippingDetails_lastName: orderShippingDetails.lastName,
+          shippingDetails_email: orderShippingDetails.email,
+          shippingDetails_phone: orderShippingDetails.phone,
+          shippingDetails_city: orderShippingDetails.city,
+          shippingDetails_district: orderShippingDetails.district,
+          shippingDetails_floor: orderShippingDetails.floor,
+          shippingDetails_appartment: orderShippingDetails.appartment,
+          shippingDetails_address: orderShippingDetails.address,
+          shippingDetails_specialNotes: orderShippingDetails.specialNotes,
+        },
+        viewMode: true,
+      });
+    }
+  }
 
   schema = {
     shippingDetails_firstName: Joi.string().required().label('First Name'),
@@ -66,7 +89,14 @@ class CheckoutAccordionForm extends Form {
                   'text',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
                 {this.renderInput(
                   'shippingDetails_lastName',
@@ -74,7 +104,14 @@ class CheckoutAccordionForm extends Form {
                   'text',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
               </div>
               <div className="row form-row justify-content-center justify-content-sm-start">
@@ -84,7 +121,14 @@ class CheckoutAccordionForm extends Form {
                   'email',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
                 {this.renderInput(
                   'shippingDetails_phone',
@@ -92,7 +136,14 @@ class CheckoutAccordionForm extends Form {
                   'text',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
               </div>
               <div className="row form-row justify-content-center justify-content-sm-start">
@@ -102,7 +153,14 @@ class CheckoutAccordionForm extends Form {
                   'text',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
                 {this.renderInput(
                   'shippingDetails_district',
@@ -110,7 +168,14 @@ class CheckoutAccordionForm extends Form {
                   'text',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
               </div>
               <div className="row form-row justify-content-center justify-content-sm-start">
@@ -120,7 +185,14 @@ class CheckoutAccordionForm extends Form {
                   'text',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
                 {this.renderInput(
                   'shippingDetails_appartment',
@@ -128,7 +200,14 @@ class CheckoutAccordionForm extends Form {
                   'text',
                   'form-group mb-1 col-md-6 col-sm-12',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  null,
+                  null,
+                  null,
+                  this.state.viewMode
                 )}
               </div>
               <div className="row form-row justify-content-center justify-content-sm-start">
@@ -137,7 +216,11 @@ class CheckoutAccordionForm extends Form {
                   'Address',
                   'form-group mb-1',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  this.state.viewMode
                 )}
               </div>
               <div className="row form-row justify-content-center justify-content-sm-start">
@@ -146,7 +229,11 @@ class CheckoutAccordionForm extends Form {
                   'Apecial Notes',
                   'form-group mb-1',
                   'form-label billing-details-label',
-                  'form-control outfit'
+                  'form-control outfit',
+                  true,
+                  {},
+                  '',
+                  this.state.viewMode
                 )}
               </div>
             </Accordion.Body>
